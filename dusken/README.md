@@ -6,7 +6,7 @@ Scripts created in association with Under Dusken.
 Scripts
 -------
 
-	require 'github/markup'
-    GitHub::Markup.render(file, File.read(file))
+	require 'skillz'
+    This is a code comment test.
 
 

@@ -4,11 +4,14 @@
 rm /tmp/emailmessage.txt 
 EMAILMESSAGE="/tmp/emailmessage.txt"
 
-echo "To:username@somedomain.com
-From:youraccount@gmail.com
-Subject: Test
+echo "To:magnuskiro@gmail.com
+From:magnuskiro@gmail.com
+Subject: Status
 " >>$EMAILMESSAGE
+
+# add additional message body here.
 w >>$EMAILMESSAGE
+
 # send an email using /bin/mail
-ssmtp magnuskiro@gmail.com < $EMAILMESSAGE
+/usr/sbin/ssmtp magnuskiro@gmail.com < $EMAILMESSAGE
   

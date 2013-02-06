@@ -9,7 +9,13 @@ From:magnuskiro@gmail.com
 Subject: Status
 " >>$EMAILMESSAGE
 
+
+
 # add additional message body here.
+echo "Current IP: " >> $EMAILMESSAGE
+lynx --dump http://ipecho.net/plain >> $EMAILMESSAGE
+
+echo "Status: " >> $EMAILMESSAGE
 w >>$EMAILMESSAGE
 
 # send an email using /bin/mail

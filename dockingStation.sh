@@ -4,7 +4,7 @@
 
 # TODO dock only on local network.  
 # if ip is in range 192.168.1.0/24
-synergyc -n kiro-tp 192.168.1.102
+synergyc -n kiro-tp 193.71.111.23
 
 # TODO set screen resolutions for multiple docking screens
 

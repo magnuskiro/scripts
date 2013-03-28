@@ -4,47 +4,54 @@
 ################################################
 #general configuration cross linux machines. 
 
-# Static variables
-conf="~/repos/configs"
 
 # create folders
-mkdir ~/repos
-mkdir ~/ntnu
-mkdir ~/dusken
+for folder in "repos" "ntnu" "dusken"
+do
+	mkdir ~/$folder
+done
 
 # install packages
-apt-get install git vim exuberant-ctags libparse-exuberantctags-perl ack-grep
+sudo apt-get install git vim exuberant-ctags libparse-exuberantctags-perl ack-grep
 
-# create ssh key for git. 
+# create ssh key for git.
+echo "!-----"
+cd ~/.ssh
+if [ ! -e "./id_rsa.pub" ]; then
+	echo "ssh key doesn't exist, creating one"
+	ssh-keygen
+	echo "!-----"
+fi
+cd
 cat ~/.ssh/id_rsa.pub 
-read -p "The manual step, put ssh key into github.com then Press any key to continue... "
+echo "!-----" 
 
-# clone projects.
+echo -n "The manual step, put ssh key into github.com then Press [ENTER] to continue,...: "
+read v
+
+# clone projects from git.
+gitUser="magnuskiro"
 cd repos 
-# TODO add repository cloning
-	# create some kind of for loop with an array. 
-repo="configs"
-git clone git@github.com:magnuskiro/$repo.git
-repo="scripts"
-git clone git@github.com:magnuskiro/$repo.git
-
+for repo in "configs" "scripts" "magnuskiro.github.com"
+do
+	# if folder not exists.
+	if [ ! -d './'$repo ]; then
+		git clone git@github.com:$gitUser/$repo.git
+    fi
+ 
+done
 cd
 
-# create symlinks. 
-# TODO fix the rest of the symlinks.
+# Symlinking
+	# create som kind of for loop. 
+conf_dir="~/repos/configs"
 
-# vim 
-rm -rf ~/.vim && ln -s $conf/.vim .vim
-rm ~/.vimrc && ln -s $conf/.vimrc .vimrc
-
-# profile
-rm ~/.profile && ln -s $conf/.profile ~/.profile
-
-# bashrc
-rm ~/.bashrc && ln -s $conf/.bashrc ~/.bashrc
-
-# git
-rm ~/.gitconfig && ln -s $conf/.gitconfig ~/.gitconfig
+for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig"
+do
+        rm -rf ~/$conf_file
+        cmd='ln -s '$conf_dir'/'$conf_file' ~/'$conf_file
+        eval $cmd
+done
 
 ################################################
 #Profiles 
@@ -53,6 +60,6 @@ rm ~/.gitconfig && ln -s $conf/.gitconfig ~/.gitconfig
 
 ## --x201
 # thinkpad config.
+#apt-get install synergy guake gnome-do 
 #cd /usr/share/X11/xorg.conf.d/ & sudo ln -s $conf/20-thinkpad.conf 20-thinkpad.conf
-echo "dock" >> ~/.bashrc
 

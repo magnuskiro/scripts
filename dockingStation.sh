@@ -4,7 +4,20 @@
 
 # TODO dock only on local network.  
 # if ip is in range 192.168.1.0/24
-synergyc -n kiro-tp 193.71.111.23
+if ! pidof synergyc ; then
+	# connects stationary keyboard and mouse. 
+	synergyc -n kiro-tp 193.71.111.23
+
+	# screen setup 
+else 
+	# disconnects keyboard and mouse. 
+	killall synergyc
+
+	# reset screen resolutions.
+	
+fi
+
+
 
 # TODO set screen resolutions for multiple docking screens
 

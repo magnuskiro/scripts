@@ -18,6 +18,7 @@ else
 
 	# reset screen resolutions.
 	xrandr --output VGA1 --off
+	xrandr --output LVDS1 --auto
 fi
 
 

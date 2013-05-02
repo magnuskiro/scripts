@@ -30,10 +30,6 @@ END
 echo "Pidof this: "$$
 name=`echo "$1" | cut -d'.' -f1`
 pdf=$name".pdf" 
-evincePID=0
-
-while event=$(inotifywait -e MOVE_SELF,CLOSE_WRITE $1 > /dev/null 2>&1)
-do
 
 if [ -n "$1" ] && [ -n "$2" ];
 then
@@ -55,23 +51,5 @@ rm -f log *.toc *.aux *.out  *.snm *.nav *.dvi *.lof
 wc=`pdftotext $pdf - | wc -w`
 
 echo "Compiled '$1' with $wc words"
-
-
-### start evince to display the pdf.
-# if the pdf file exists and the pid is 0.
-# we assume that when the pdi!=0 evince is running
-# drawback is that we don't kill the evince process.  
-
-#file="/proc/"$evincePID
-#if [ -f $pdf ] && [ ! -f $file ];
-if [ -f $pdf ] && [ $evincePID -eq 0 ];
-then
-    evince $pdf &
-    evincePID=$!
-    echo "EvincePId: "$evincePID
-fi
-### end evince start code. 
-
-done
 
 exit 1

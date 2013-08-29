@@ -1,0 +1,8 @@
+#!/bin/bash
+#Alternative
+pgrep $@ > /dev/null || ($@ &)
+
+# TODO
+# if not pid of nm-applet
+	# start nm-applet./program.  
+

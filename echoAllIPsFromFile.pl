@@ -1,4 +1,4 @@
-#!/shared/perl
+#!/usr/bin/perl
 
 # get file to search from the first input argument
 my $arg = $ARGV[0];

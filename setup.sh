@@ -76,3 +76,5 @@ done
 #    mkdir ~/$folder
 #done
 
+# Cleaning up / removing itself
+rm ~/setup.sh

@@ -6,6 +6,10 @@
 # execute this cmd on new system to install and cofnigure stuff. 
 # wget https://raw.github.com/magnuskiro/scripts/master/setup.sh && chmod 755 setup.sh && ./setup.sh
 
+# TODO
+# convert to standard input with params. 
+# create simple setup: vim, git, colors, no repos etc.
+
 ################################################
 
 # create folders

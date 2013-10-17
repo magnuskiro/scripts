@@ -33,14 +33,24 @@ else
 # projector mode.
 	if [ "$1" = "-p" ];
 	then
-		echo "INFO-- Projector mode."
-		xrandr --output LVDS1 --auto --output VGA1 --auto --same-as LVDS1
-	elif [ "$1" = "-d" ];
+		if [ -z "$2" ];
+		then # std resolution
+			std='1024x768'
+			xrandr --output LVDS1 --mode $std --output VGA1 --mode $std --same-as LVDS1
+		else # resolution input as arg
+			xrandr --output LVDS1 --mode $2 --output VGA1 --mode $2 --same-as LVDS1
+		fi
+		echo "INFO-- Projector mode. Same image on both screens."
+	# TODO create mode for single, external screen only. 
+	elif [ "$1" = "-d" ]; # Home. 
 	then
-    	echo "INFO-- Docking mode."
-   		xrandr --output LVDS1 --auto --output VGA1 --primary --auto --left-of LVDS1
+   		xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
+    	echo "INFO-- Docking mode at home. Only external screen, Full resolution."
+	elif [ "$1" = "-h" ]; # Help
+	then
+		echo "Use 'dock' with '-p', '-d' or no parameter" 
 	else
-		echo "ERROR: Not a valid param. Use '-p' or nothing"
+		echo "ERROR: Not a valid param. 'dock -h' for help"
 	fi
 	
 fi

@@ -15,7 +15,9 @@ then
         #killall synergyc
     
         # reset screen resolutions.
-    	xrandr --output VGA1 --off --output LVDS1 --auto
+    	xrandr --output VGA1 --off 
+		xrandr --output HDMI1 --off  
+		xrandr --output LVDS1 --auto
     
     else # if there are no vga1 screen connected.
     # engade docking 
@@ -44,11 +46,14 @@ else
 	# TODO create mode for single, external screen only. 
 	elif [ "$1" = "-d" ]; # Home. 
 	then
-   		xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
-    	echo "INFO-- Docking mode at home. Only external screen, Full resolution."
+   		#xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
+   		xrandr --output LVDS1 --off 
+		xrandr --output VGA1 --primary --auto 
+		xrandr --output HDMI1 --auto --right-of VGA1 
+    	echo "INFO-- Dual screens. Full resolution both screens, laptop screen off."
 	elif [ "$1" = "-h" ]; # Help
 	then
-		echo "Use 'dock' with '-p', '-d' or no parameter" 
+		echo "Use 'dock' with \n '-p' projector, \n '-d' dual screen, laptop off. \n or no parameter = reset, laptop only." 
 	else
 		echo "ERROR: Not a valid param. 'dock -h' for help"
 	fi

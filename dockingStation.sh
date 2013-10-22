@@ -15,8 +15,8 @@ then
         #killall synergyc
     
         # reset screen resolutions.
-    	xrandr --output VGA1 --off 
 		xrandr --output HDMI1 --off  
+    	xrandr --output VGA1 --off 
 		xrandr --output LVDS1 --auto
     
     else # if there are no vga1 screen connected.
@@ -48,8 +48,7 @@ else
 	then
    		#xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
    		xrandr --output LVDS1 --off 
-		xrandr --output VGA1 --primary --auto 
-		xrandr --output HDMI1 --auto --right-of VGA1 
+		xrandr --output VGA1 --primary --auto --output HDMI1 --auto --right-of VGA1 
     	echo "INFO-- Dual screens. Full resolution both screens, laptop screen off."
 	elif [ "$1" = "-h" ]; # Help
 	then
@@ -59,7 +58,5 @@ else
 	fi
 	
 fi
-
-# TODO set screen resolutions for multiple docking screens
 
 exit 1

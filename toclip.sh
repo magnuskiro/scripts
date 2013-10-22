@@ -1,0 +1,1 @@
+cat $@ | xclip -selection clipboard

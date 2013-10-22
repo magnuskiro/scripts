@@ -1,8 +1,9 @@
 #!/usr/bin/perl
 
 # Usage:
+#./getAllEmailsFromFile.pl fileWithEmailsInIt @notWantedEmail @notInterestedInThisOneEither
 # arg1= input file. 
-# @ARGV = the extensions that we don't want. 
+# @ARGV = regex expressions of email we don't want. 
 
 # get file to search from the first input argument
 my $arg = shift @ARGV;

@@ -48,7 +48,7 @@ else
 	then
    		#xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
    		xrandr --output LVDS1 --off 
-		xrandr --output VGA1 --primary --auto --output HDMI1 --auto --right-of VGA1 
+		xrandr --output HDMI1 --primary --auto --output VGA1 --auto --left-of HDMI1 
     	echo "INFO-- Dual screens. Full resolution both screens, laptop screen off."
 	elif [ "$1" = "-h" ]; # Help
 	then

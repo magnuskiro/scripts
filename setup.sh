@@ -21,6 +21,7 @@ done
 
 # install packages/
 echo "INFO - Installing packages"
+# TODO update with awesome install. 
 sudo apt-get -y install git vim exuberant-ctags libparse-exuberantctags-perl ack-grep xclip inotify-tools 
 
 # create ssh key for git.

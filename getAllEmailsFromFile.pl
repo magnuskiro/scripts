@@ -16,7 +16,7 @@ open(FILE, $arg) or die $!;
 OUTER_LOOP:
 while (<FILE>) {
    	# if the line contains en email address
-	if(m/([-A-Za-z0-9\.]*@[A-Za-z0-9\.]*\.[a-z]{2,4})/){
+	if(m/([-A-Za-z0-9\.]+@[A-Za-z0-9\.]+\.[a-z]{2,4})/){
 		# for all the regex expressions we want to exclude
     	foreach my $item (@ARGV){
             # if the email is unwanted skip to next.  

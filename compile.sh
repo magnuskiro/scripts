@@ -68,6 +68,7 @@ startEvince () {
     #if [ -f $pdf ] && [ ! -f $file ];
 	if [ $# -eq 0 ] && [ $startEvince -eq 1 ];
     then
+		# TODO pipe evince errors to /dev/null
         evince $pdf &
     elif [ -f $pdf ] && [ $evincePID -eq 0 ] && [ $startEvince -eq 1 ];
     then
@@ -82,6 +83,7 @@ DoCompile () {
     eval $@
     Cleanup
     WordCount
+	# TODO echo if compile error. 
     startEvince
 }
 Compile () {
@@ -107,12 +109,14 @@ Compile () {
     then 
 		startEvince=1
 		# Files to be excluded from listening by inotifywait. group regex.  
-		exclude='(.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.blg|.*\.bbl|.*\.lol)'
+		exclude='(.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.blg|.*\.bbl|.*\.lol|\..*\.swp|\..*\.swx)'
 		re='^[0-9]+$' # matching number. 
 
 		# if a file in the folder has CLOSE_WRITE og MOVE_SELF event, we read
 		# the filename and recompiles the document. 
 		# TODO update: use the folder to the input file, not the current directory. 
+		# TODO compile only on write, not on create file. 
+		# TODO check if evince won't demand focus on compile. 
 		inotifywait -qmr --exclude $exclude --format '%f' -e MOVE_SELF,CLOSE_WRITE ./ | while read file;
 	    do
 			if ! [[ ${file} =~ $re ]];

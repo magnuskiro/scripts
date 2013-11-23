@@ -19,10 +19,21 @@ do
 	mkdir ~/$folder
 done
 
-# install packages/
+# Update package list. 
+echo "INFO - Updating packages"
+sudo apt-get update
+
+# add spotify sources.list
+sudo chmod 777 /etc/apt/sources.list
+sudo echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list
+sudo chmod 644 /etc/apt/sources.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
+
+# install packages.
 echo "INFO - Installing packages"
-# TODO update with awesome install. 
-sudo apt-get -y install git vim exuberant-ctags libparse-exuberantctags-perl ack-grep xclip inotify-tools 
+sudo apt-get install -y spotify-client htop git vim exuberant-ctags \
+libparse-exuberantctags-perl ack-grep xclip inotify-tools awesome \
+awesome-extra vlc gnome-do xterm dropbox 
 
 # create ssh key for git.
 echo "INFO - SSH"
@@ -53,14 +64,17 @@ do
 done
 
 # Symlinking
-echo "INFO - Symlinking"
+echo "INFO - Creating Symlinks"
 conf_dir="~/repos/configs"
-for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig"
+for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" ".config/awesome"
 do
         rm -rf ~/$conf_file
         cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
         eval $cmd
 done
+
+# Doing System upgrade last. 
+sudo apt-get upgrade
 
 ################################################
 # TODO create profiles. 

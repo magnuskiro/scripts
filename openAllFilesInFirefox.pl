@@ -1,28 +1,46 @@
 #!/usr/bin/perl
-    use strict;
-    use warnings;
+use strict;
+use warnings;
+use Cwd;
 
-    my $directory = '/home/kiro/Downloads/new/a/';
+# get the input folder. 
+my $directory = getcwd."/";
+for my $part (@ARGV){
+	# skip directories that start with one ore more . 
+	if ( $part =~ m/^\.+/ ){ next }; 
+	$directory = $directory.$part; 
+}
 
-    opendir (DIR, $directory) or die $!;
+#print $directory;
 
-my $base = "file:///home/kiro/Downloads/new/a/";
+# Open the given folder for reading.
+opendir (DIR, $directory) or die $!;
+
+my $base = "file://$directory/";
+#print $base; 
 my @files; 
 
-    while (my $file = readdir(DIR)) {
-		push(@files, $file);
+# find all files in the folder. 
+while (my $file = readdir(DIR)) {
+	# skip files that start with one or multiple .
+	if ( $file =~ m/^\.+/ ){ next }; 
+	push(@files, $file);
+}
+closedir(DIR);
 
-    }
-    closedir(DIR);
-	@files = sort (@files);
-#	print @files;
+# Sort all files in the folder. 
+@files = sort (@files);
 
-	my $params;
-	foreach my $item (@files){
-#        print "$base$item\n";
-		$params = "$params $base$item";
-	}
+my $params = "";
+# for all files 
+foreach my $item (@files){
+#	print $base.$item."\n";
+	# concatenate one long open firefox string, so that all files are opened in
+	# one firefox instance.
+	$params = $params." '".$base.$item."'";
+}
 
-		exec "firefox $params"; 
+# execute the open all files command. 
+exec "firefox $params"; 
 
  

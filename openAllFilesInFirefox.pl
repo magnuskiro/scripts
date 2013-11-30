@@ -6,12 +6,12 @@ use Cwd;
 # get the input folder. 
 my $directory = getcwd."/";
 for my $part (@ARGV){
-	# skip directories that start with one ore more . 
+	# skip directories/files that start with one ore more . 
 	if ( $part =~ m/^\.+/ ){ next }; 
 	$directory = $directory.$part; 
 }
 
-#print $directory;
+print $directory;
 
 # Open the given folder for reading.
 opendir (DIR, $directory) or die $!;

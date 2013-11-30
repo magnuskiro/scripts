@@ -8,7 +8,8 @@
 
 # TODO
 # convert to standard input with params. 
-# create simple setup: vim, git, colors, no repos etc.
+# fix profiles.
+# create update profile. "setup.sh -u"
 
 ################################################
 
@@ -33,7 +34,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 echo "INFO - Installing packages"
 sudo apt-get install -y spotify-client htop git vim exuberant-ctags \
 libparse-exuberantctags-perl ack-grep xclip inotify-tools awesome \
-awesome-extra vlc gnome-do xterm dropbox 
+awesome-extra vlc gnome-do xterm dropbox xscreensaver filezilla 
 
 # create ssh key for git.
 echo "INFO - SSH"
@@ -72,6 +73,9 @@ do
         cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
         eval $cmd
 done
+
+# symlinking $home/bin
+ln -s ~/repos/scripts/ ~/bin
 
 # Doing System upgrade last. 
 sudo apt-get upgrade

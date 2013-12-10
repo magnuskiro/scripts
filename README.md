@@ -8,7 +8,7 @@ such is to be added.
 In the folder **dusken**
 Scripts created in association with Under Dusken and Mediastud.
 
-##Sustem setup scritp
+##Sustem setup script
 Maybe not the most important of them, but definetlly one of the more usefull
 ones. Just insert line into linux terminal to setup the local system environment to my liking.
 

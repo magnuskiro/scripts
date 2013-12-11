@@ -6,8 +6,7 @@
 This script compiles latex documents automatically on change.  
 
 ## Requirements
-* pdflatex
-* tex-live-extras (or whats it called)
+* texlive-latex-extra
 
 ## Where it works
 Linux: with pdlatex and texlive-extra

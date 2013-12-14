@@ -1,15 +1,34 @@
 #!/bin/bash
-# script to send simple email 
+
+: <<'END'
+Script to sent statusmail to myself from any computer with the script in cron
+and ssmtp installed. 
+
+Requirements: 
+* ssmtp
+* ~/repos/configs/ssmtp.conf
+
+Edit crontab: 
+crontab -e
+
+Add this: 
+0 7 * * * /home/kiro/repos/scripts/statusMail.sh
+
+This will execute the statusMail script each day at 07:00. 
+
+And update the /etc/ssmtp/ssmtp.conf with the config file. 
+
+END
  
 rm /tmp/emailmessage.txt 
 EMAILMESSAGE="/tmp/emailmessage.txt"
 
+hostname=`hostname`
+
 echo "To:magnuskiro@gmail.com
 From:magnuskiro@gmail.com
-Subject: Status
+Subject: Status from '$hostname'
 " >>$EMAILMESSAGE
-
-
 
 # add additional message body here.
 echo "Current IP: " >> $EMAILMESSAGE

@@ -1,3 +1,7 @@
+exit
+
+the exit cmd is a precaution so I don't accidentaly run README.md
+
 #Scripts'n Snippets
 
 This repository contains my scripts and code snippets.

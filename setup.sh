@@ -30,12 +30,14 @@ sudo echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/source
 sudo chmod 644 /etc/apt/sources.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 
+# TODO add skype install instructions. 
+
 # install packages.
 echo "INFO - Installing packages"
 sudo apt-get install -y spotify-client htop git vim exuberant-ctags \
 libparse-exuberantctags-perl ack-grep xclip inotify-tools awesome \
-awesome-extra vlc gnome-do xterm dropbox xscreensaver filezilla \
-evince pdflatex texlive-latex-extra 
+awesome-extra vlc gnome-do dropbox xscreensaver filezilla \
+evince pdflatex texlive-latex-extra xcfe4-terminal ssmtp
 
 # create ssh key for git.
 echo "INFO - SSH"

@@ -7,7 +7,7 @@
 
 # get file to search from the first input argument
 my $arg = shift @ARGV;
-my $count = 0;
+my @mails;
 
 # open current file
 open(FILE, $arg) or die $!;
@@ -26,13 +26,18 @@ while (<FILE>) {
             }
         }
 		#print and count the email  
-	    print $1."\n";
-    	$count ++;
+	    #print $1."\n";
+
+		# push the found email to the array if the element don't already exist.
+		push(@mails, $1) unless (grep {$_ eq $1} @mails);
 	}
 }
 
 # close file. 
 close(FILE);
 
-print $count ."\n";
+foreach my $mail (@mails){
+	print $mail."\n"; 
+}
+print "count: " . @mails ."\n";
 

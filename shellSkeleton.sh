@@ -30,6 +30,10 @@ anotherOne () {
 }
 
 # Input gathering. 
+# "ab:c:" is the allowed input parameters. 
+# 'b:' means that we have a possible -b parameter with a following variable. 
+# 'a' means that we have a possible parameter without a following input.
+# the sequence of options matters. '-b input -a' might give faulty results. 
 while getopts "ab:c:" opt; do
   case $opt in
 	# -a

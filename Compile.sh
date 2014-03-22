@@ -33,6 +33,11 @@ compile.
 # Specifics and explenations.
 compiling twice because once might not do the trick. 
 
+# TODO 
+* -h : help, should print the usage of the script. 
+* opening a filename with more than one . (dot)
+* -es cleanup should remove .blg .bbl .aux
+
 END
 
 echo "Pidof this: "$$

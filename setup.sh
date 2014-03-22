@@ -10,6 +10,7 @@
 # convert to standard input with params. 
 # fix profiles.
 # create update profile. "setup.sh -u"
+# add owncloud client install instructons
 
 ################################################
 
@@ -29,8 +30,6 @@ sudo chmod 777 /etc/apt/sources.list
 sudo echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list
 sudo chmod 644 /etc/apt/sources.list
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
-
-# TODO add skype install instructions. 
 
 # install packages.
 echo "INFO - Installing packages"

@@ -1,3 +1,6 @@
+~/repos/scripts/dockingStation.sh
+sleep 2
+
 xscreensaver-command -lock &&
 dbus-send --system --print-reply --dest=org.freedesktop.Hal \
     /org/freedesktop/Hal/devices/computer \

@@ -1,5 +1,5 @@
-~/repos/scripts/dockingStation.sh
-sleep 2
+~/repos/scripts/docking.sh
+sleep 1
 
 xscreensaver-command -lock &&
 dbus-send --system --print-reply --dest=org.freedesktop.Hal \

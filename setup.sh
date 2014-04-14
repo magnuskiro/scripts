@@ -35,8 +35,9 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 echo "INFO - Installing packages"
 sudo apt-get install -y spotify-client htop git vim exuberant-ctags \
 libparse-exuberantctags-perl ack-grep xclip inotify-tools awesome \
-awesome-extra vlc gnome-do dropbox xscreensaver filezilla \
-evince pdflatex texlive-latex-extra xcfe4-terminal ssmtp
+awesome-extra vlc gnome-do xscreensaver filezilla \
+evince pdflatex texlive-latex-extra xcfe4-terminal ssmtp eog \
+owncloud-client
 
 # create ssh key for git.
 echo "INFO - SSH"

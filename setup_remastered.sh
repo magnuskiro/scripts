@@ -125,6 +125,10 @@ CreateSymlinks () {
 	
 }
 
+LaptopSpecifics () {
+	# thikpad x201 config. 
+	sudo ln -s "~/repos/configs/20-thinkpad.conf" "/usr/share/X11/xorg.conf.d/20-thinkpad.conf"
+}
 
 # Input gathering. 
 # "ab:c:" is the allowed input parameters. 

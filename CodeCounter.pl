@@ -29,13 +29,15 @@ sub countFolder {
 			if ( $file =~ m/^\.+/ ){ next }; 
 			# if directory: do recursion
 			if ( -d $file ) {
+				#print "---\n";
 				# add the line count of a folder to the total.
-				$count += countFolder($dir.$file."/", @extensions);
+				$count += countFolder($dir.$file."/", $extension);
 			}
 			# if wanted file extension
         	if ( $file =~ m/\.$extension$/ ){
         		# if we get line count from wc 
-				if (`wc -l $dir$file` =~ m/(^\d\d)/ ){
+				if (`wc -l $dir$file` =~ m/(^\d*)/ ){
+					#print $1." ".$file."\n";
 					# add the number to the total count. 
 					$count += $1;
 				} else {

@@ -113,7 +113,7 @@ Compile () {
     then 
 		startEvince=1
 		# Files to be excluded from listening by inotifywait. group regex.  
-		exclude='(.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.blg|.*\.bbl|.*\.lol|\..*\.swp|\..*\.swx)'
+		exclude='(.*\.aux|.*\.lot|.*\.lol|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.aux|.*\.out|.*\.toc|.*\.lof|.*\.pdf|.*\.log|.*\.blg|.*\.bbl|.*\.lol|\..*\.swp|\..*\.swx)'
 		re='^[0-9]+$' # matching number. 
 
 		# if a file in the folder has CLOSE_WRITE og MOVE_SELF event, we read

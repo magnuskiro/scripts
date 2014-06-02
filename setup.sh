@@ -85,7 +85,7 @@ CreateFolder () {
 }
 
 Configs () {
-    repo_folder="~/repos"
+    repo_folder="$HOME/repos"
 	CreateFolder $repo_folder	
 
     echo "INFO - Config setup"
@@ -115,7 +115,7 @@ Configs () {
 }
 
 Scripts () {
-    repo_folder="~/repos"
+    repo_folder="$HOME/repos"
 	CreateFolder $repo_folder	
 
 	echo "INFO - Scripts setup"

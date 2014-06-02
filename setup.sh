@@ -85,8 +85,8 @@ CreateFolder () {
 }
 
 Configs () {
-    repo_folder="$HOME/repos"
-	CreateFolder $repo_folder	
+    repo_folder="repos"
+	CreateFolder ~/$repo_folder	
 
     echo "INFO - Config setup"
 	echo "INFO - Cloning configs"
@@ -97,10 +97,10 @@ Configs () {
 	if [ 1 -eq $1 ] 
 	then
 		echo "INFO - Cloning HTTPS"
-    	git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
+    	git clone https://github.com/$gitUser/$repo.git ~/$repo_folder/$repo
 	else
 		echo "INFO - Cloning SSH"
-    	git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
+    	git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
 	fi
     
 	echo "INFO - Creating symlinks"
@@ -115,8 +115,8 @@ Configs () {
 }
 
 Scripts () {
-    repo_folder="$HOME/repos"
-	CreateFolder $repo_folder	
+    repo_folder="repos"
+	CreateFolder ~/$repo_folder	
 
 	echo "INFO - Scripts setup"
     echo "INFO - Cloning scripts"
@@ -127,10 +127,10 @@ Scripts () {
     if [ 1 -eq $1 ] 
     then
 		echo "INFO - Cloning HTTPS"
-        git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
+        git clone https://github.com/$gitUser/$repo.git ~/$repo_folder/$repo
     else
 		echo "INFO - Cloning SSH"
-        git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
+        git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
     fi
 
 	echo "INFO - symlinking scripts"

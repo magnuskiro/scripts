@@ -96,10 +96,10 @@ Configs () {
 	# take true parameter to use https. 
 	if [ 1 -eq $1 ] 
 	then
-		echo $1 https
+		echo "INFO - Cloning HTTPS"
     	git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
 	else
-		echo ssh
+		echo "INFO - Cloning SSH"
     	git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
 	fi
     
@@ -126,8 +126,10 @@ Scripts () {
     # take true parameter to use https. 
     if [ 1 -eq $1 ] 
     then
+		echo "INFO - Cloning HTTPS"
         git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
     else
+		echo "INFO - Cloning SSH"
         git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
     fi
 

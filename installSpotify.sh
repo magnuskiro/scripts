@@ -14,7 +14,9 @@ END
 
 InstallSpotify () {
     # add spotify sources.list
-    sudo echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list.d/spotify.list
+    sudo echo "deb http://repository.spotify.com stable non-free" >> ./spotify.list
+	sudo mv ./spotify.list /etc/apt/sources.list.d/spotify.list 
+	
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 
     # install Spotify

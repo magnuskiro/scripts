@@ -18,16 +18,12 @@ bash_program -bac
 * multiple parameters with input. 
 bash_program -a a-param-input -b another_input_value
 
-END
+Auto install command: 
+wget \
+https://raw.githubusercontent.com/magnuskiro/scripts/master/setup.sh \
+&& chmod 755 ./setup.sh && ./setup.sh && rm /setup.sh 
 
-CreateFolders () {
-	# create folders
-    echo "INFO - Creating folders"
-    for folder in "repos" "dusken"
-    do
-        mkdir ~/$folder
-    done
-}
+END
 
 MinimalPackageInstall () {
 	packages = "
@@ -124,6 +120,11 @@ Scripts () {
     ln -s ~/repos/scripts/ ~/bin
 }
 
+PullAllRepos () {
+	echo "INFO - Pulling all repos"
+	#TODO fix
+}
+
 ClonePersonalRepos () {
     # clone projects from git.
     echo "INFO - Cloning projects"
@@ -131,7 +132,7 @@ ClonePersonalRepos () {
     repo_folder="repos"
 
 	# TODO add all repos, dusken, kodekollektivet and more.
-    for repo in "magnuskiro.github.com"
+    for repo in "magnuskiro.github.com" "ntnu"
     do
         # if folder not exists.
 		# TODO test, might be buggy. repos not directly in home. 

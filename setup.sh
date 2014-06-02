@@ -92,7 +92,14 @@ Configs () {
 	echo "INFO - Cloning configs"
     gitUser="magnuskiro"
     repo="configs" 
-    git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
+
+	# take true parameter to use https. 
+	if [ 1 -eq $1 ] 
+	then
+    	git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
+	else
+    	git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
+	fi
     
 	echo "INFO - Creating symlinks"
 	# Config links
@@ -113,7 +120,14 @@ Scripts () {
     echo "INFO - Cloning scripts"
     gitUser="magnuskiro"
     repo="scripts" 
-    git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
+
+    # take true parameter to use https. 
+    if [ 1 -eq $1 ] 
+    then
+        git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
+    else
+        git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
+    fi
 
 	echo "INFO - symlinking scripts"
     # symlinking $home/bin
@@ -172,7 +186,7 @@ while getopts "imsu" opt; do
 		#installOwnCloadClient.sh
 
 		# Cleaning up / removing itself
-		rm ~/setup.sh
+		rm ./setup.sh
 	;;
 	# -minimal
 	m)
@@ -180,7 +194,7 @@ while getopts "imsu" opt; do
 		# vim, git, htop, ack-grep
 		MinimalPackageInstall
 		# Configure
-		Configs
+		Configs 1
 	;;
 	# -server 
     s)  

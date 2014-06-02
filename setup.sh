@@ -96,9 +96,9 @@ Configs () {
 	# take true parameter to use https. 
 	if [ 1 -eq $1 ] 
 	then
-    	git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
-	else
     	git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
+	else
+    	git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
 	fi
     
 	echo "INFO - Creating symlinks"
@@ -124,9 +124,9 @@ Scripts () {
     # take true parameter to use https. 
     if [ 1 -eq $1 ] 
     then
-        git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
-    else
         git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
+    else
+        git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
     fi
 
 	echo "INFO - symlinking scripts"

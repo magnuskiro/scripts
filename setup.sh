@@ -1,102 +1,203 @@
-#!/bin/sh
+#!/bin/bash
 
-################################################
-# script general configuration cross linux machines. 
+: <<'END'
 
-# execute this cmd on new system to install and cofnigure stuff. 
-# wget https://raw.github.com/magnuskiro/scripts/master/setup.sh && chmod 755 setup.sh && ./setup.sh
+Comments, requirements and userguide here. 
 
-# TODO
-# convert to standard input with params. 
-# fix profiles.
-# create update profile. "setup.sh -u"
-# add owncloud client install instructons
+## Description
+This is a bash script template. To quickly create good and powerfull scripts.  
 
-################################################
+## Requirements
+You need these packages or programs for this script to work. 
 
-# create folders
-echo "INFO - Creating folders"
-for folder in "repos" "ntnu" "dusken"
-do
-	mkdir ~/$folder
-done
+## Use: 
+* one parameter
+bash_program -a
+* multiple parameters without extra input.
+bash_program -bac
+* multiple parameters with input. 
+bash_program -a a-param-input -b another_input_value
 
-# Update package list. 
-echo "INFO - Updating packages"
-sudo apt-get update
+END
 
-# add spotify sources.list
-sudo chmod 777 /etc/apt/sources.list
-sudo echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list
-sudo chmod 644 /etc/apt/sources.list
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
+CreateFolders () {
+	# create folders
+    echo "INFO - Creating folders"
+    for folder in "repos" "dusken"
+    do
+        mkdir ~/$folder
+    done
+}
 
-# install packages.
-echo "INFO - Installing packages"
-sudo apt-get install -y spotify-client htop git vim exuberant-ctags \
-libparse-exuberantctags-perl ack-grep xclip inotify-tools awesome \
-awesome-extra vlc gnome-do xscreensaver filezilla \
-evince pdflatex texlive-latex-extra xcfe4-terminal ssmtp eog \
-owncloud-client
+MinimalPackageInstall () {
+	packages = "
+	git ack-grep htop vim
+	"
 
-# create ssh key for git.
-echo "INFO - SSH"
-echo "!-----"
-cd ~/.ssh
-if [ ! -e "./id_rsa.pub" ]; then
-	echo "ssh key does not exist, creating one"
-	ssh-keygen
-	echo "!-----"
-fi
-cd
-cat ~/.ssh/id_rsa.pub 
-echo "!-----" 
+	echo "INFO - Installing minimal packages"
+	sudo apt-get install -y $packages
+}
 
-echo -n "The manual step, put ssh key into github.com then Press [ENTER] to continue...: "
-read v
+PackageInstall () {
+	MinimalPackageInstall
+	
+	packages = "
+	exuberant-ctags libparse-exuberantctags-perl xclip 
+	ssmtp 
+	awesome awesome-extra xscreensaver 
+	gnome-do filezilla owncloud-client xcfe4-terminal 
+    evince pdflatex texlive-latex-extra inotify-tools 
+	eog	vlc
+    "
 
-# clone projects from git.
-echo "INFO - Cloning projects"
-gitUser="magnuskiro"
-repo_folder="repos"
-for repo in "configs" "scripts" "magnuskiro.github.com"
-do
-	# if folder not exists.
-	if [ ! -d "./"$repo ]; then
-		git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
+	echo "INFO - Installing packages"
+	sudo apt-get install -y $packages
+
+}
+
+AptUpgrade () {
+	echo "INFO -- Upgrading"
+	# Doing System upgrade last.
+	sudo apt-get update 
+	#sudo apt-get upgrade -y
+	sudo apt-get dist-upgrade -y
+}
+
+CreateSSHkeys () {
+    echo "INFO - SSH"
+    echo "!-----"
+    cd ~/.ssh
+	# if no ssh key, generate it. 
+    if [ ! -e "./id_rsa.pub" ]; then
+        echo "ssh key does not exist, creating one"
+        ssh-keygen
+        echo "!-----"
     fi
-done
+    cd
+    cat ~/.ssh/id_rsa.pub
+    echo "!-----" 
 
-# Symlinking
-echo "INFO - Creating Symlinks"
-conf_dir="~/repos/configs"
-for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" ".config/awesome"
-do
+	echo -n "The manual step, put ssh key into github.com then Press [ENTER] to continue...: "
+	read v
+}
+
+CreateFolder () {
+    folder=$1
+    if [ ! -d "$folder" ] then 
+        mkdir $folder
+    fi
+}
+
+Configs () {
+    repo_folder="~/repos"
+	CreateFolder $repo_folder	
+
+    echo "INFO - Config setup"
+	echo "INFO - Cloning configs"
+    gitUser="magnuskiro"
+    repo="configs" 
+    git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
+    
+	echo "INFO - Creating symlinks"
+	# Config links
+    conf_dir="~/repos/configs"
+    for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" ".config/awesome"
+    do
         rm -rf ~/$conf_file
         cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
         eval $cmd
-done
+    done
+}
 
-# symlinking $home/bin
-ln -s ~/repos/scripts/ ~/bin
+Scripts () {
+    repo_folder="~/repos"
+	CreateFolder $repo_folder	
 
-# Doing System upgrade last. 
-sudo apt-get upgrade
+	echo "INFO - Scripts setup"
+    echo "INFO - Cloning scripts"
+    gitUser="magnuskiro"
+    repo="scripts" 
+    git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
 
-################################################
-# TODO create profiles. 
-# Profiles - different system specific changes. 
-## --server
+	echo "INFO - symlinking scripts"
+    # symlinking $home/bin
+    ln -s ~/repos/scripts/ ~/bin
+}
 
-## --x201
-# thinkpad config.
-#apt-get -y install synergy guake gnome-do 
-#cd /usr/share/X11/xorg.conf.d/ & sudo ln -s $conf/20-thinkpad.conf 20-thinkpad.conf
-#
-#for folder in "ntnu" "dusken"
-#do
-#    mkdir ~/$folder
-#done
+ClonePersonalRepos () {
+    # clone projects from git.
+    echo "INFO - Cloning projects"
+    gitUser="magnuskiro"
+    repo_folder="repos"
 
-# Cleaning up / removing itself
-rm ~/setup.sh
+	# TODO add all repos, dusken, kodekollektivet and more.
+    for repo in "magnuskiro.github.com"
+    do
+        # if folder not exists.
+		# TODO test, might be buggy. repos not directly in home. 
+        if [ ! -d "./"$repo ]; then
+            git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
+        fi
+    done
+}
+
+LaptopSpecifics () {
+	# thikpad x201 config. 
+	sudo ln -s "~/repos/configs/20-thinkpad.conf" "/usr/share/X11/xorg.conf.d/20-thinkpad.conf"
+}
+
+# Input gathering. 
+# "ab:c:" is the allowed input parameters. 
+# 'b:' means that we have a possible -b parameter with a following variable. 
+# 'a' means that we have a possible parameter without a following input.
+# the sequence of options matters. '-b input -a' might give faulty results. 
+while getopts "imsu" opt; do
+# -u(pdate), -i(nstall),-s(server) 
+  case $opt in
+	# -Full
+    f) 
+		# Upgrade system
+		AptUpgrade
+		# install stuff. 
+		PackageInstall
+		# create ssh keys so we can push to git. 
+		CreateSSHkeys
+		# configure everything 
+		Configs
+		Scripts
+
+		installSpotify.sh
+		#TODO create script
+		#installOwnCloadClient.sh
+
+		# Cleaning up / removing itself
+		rm ~/setup.sh
+	;;
+	# -minimal
+	m)
+		# install a bare minimum to work. 
+		# vim, git, htop, ack-grep
+		MinimalPackageInstall
+		# Configure
+		Configs
+	;;
+	# -server 
+    s)  
+		#TODO
+		# install minimum for running, quite like minimal
+		# download configs, and setup vim, gitconfig and such.
+		# without scripts. 
+		echo "arg given to b is $OPTARG" 
+	;;
+	# -upgrade
+    u)  
+		# and another one. 
+		AptUpgrade
+	;;
+	# invalid options 
+    \?) echo "Invalid option: -$OPTARG" >&2 ;;
+  esac
+done 
+
+exit()
+

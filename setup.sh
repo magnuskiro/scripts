@@ -26,9 +26,7 @@ https://raw.githubusercontent.com/magnuskiro/scripts/master/setup.sh \
 END
 
 MinimalPackageInstall () {
-	packages = "
-	git ack-grep htop vim
-	"
+	packages="git ack-grep htop vim"
 
 	echo "INFO - Installing minimal packages"
 	sudo apt-get install -y $packages
@@ -37,7 +35,7 @@ MinimalPackageInstall () {
 PackageInstall () {
 	MinimalPackageInstall
 	
-	packages = "
+	packages= "
 	exuberant-ctags libparse-exuberantctags-perl xclip 
 	ssmtp 
 	awesome awesome-extra xscreensaver 
@@ -79,13 +77,15 @@ CreateSSHkeys () {
 
 CreateFolder () {
     folder=$1
-    if [ ! -d "$folder" ] then 
-        mkdir $folder
-    fi
+	echo $folder
+    if [ ! -d "$folder" ] 
+	then 
+        mkdir "$folder"
+	fi 
 }
 
 Configs () {
-    repo_folder="~/repos"
+    repo_folder="$HOME/repos"
 	CreateFolder $repo_folder	
 
     echo "INFO - Config setup"
@@ -106,7 +106,7 @@ Configs () {
 }
 
 Scripts () {
-    repo_folder="~/repos"
+    repo_folder="$HOME/repos"
 	CreateFolder $repo_folder	
 
 	echo "INFO - Scripts setup"
@@ -198,7 +198,8 @@ while getopts "imsu" opt; do
 	# invalid options 
     \?) echo "Invalid option: -$OPTARG" >&2 ;;
   esac
+:w
 done 
 
-exit()
+exit
 

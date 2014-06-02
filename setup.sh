@@ -96,8 +96,10 @@ Configs () {
 	# take true parameter to use https. 
 	if [ 1 -eq $1 ] 
 	then
+		echo $1 https
     	git clone https://github.com/$gitUser/$repo.git $repo_folder/$repo
 	else
+		echo ssh
     	git clone git@github.com:$gitUser/$repo.git $repo_folder/$repo
 	fi
     
@@ -106,7 +108,7 @@ Configs () {
     conf_dir="~/repos/configs"
     for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" ".config/awesome"
     do
-        rm -rf ~/$conf_file
+        rm -rf $HOME/$conf_file
         cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
         eval $cmd
     done
@@ -131,7 +133,7 @@ Scripts () {
 
 	echo "INFO - symlinking scripts"
     # symlinking $home/bin
-    ln -s ~/repos/scripts/ ~/bin
+    ln -s $HOME/repos/scripts/ $HOME/bin
 }
 
 PullAllRepos () {
@@ -186,7 +188,7 @@ while getopts "imsu" opt; do
 		#installOwnCloadClient.sh
 
 		# Cleaning up / removing itself
-		rm ./setup.sh
+		rm -rf setup.sh
 	;;
 	# -minimal
 	m)

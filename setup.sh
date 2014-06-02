@@ -21,7 +21,7 @@ bash_program -a a-param-input -b another_input_value
 Auto install command: 
 wget \
 https://raw.githubusercontent.com/magnuskiro/scripts/master/setup.sh \
-&& chmod 755 ./setup.sh && ./setup.sh && rm /setup.sh 
+&& chmod 755 ./setup.sh && ./setup.sh && rm ./setup.sh 
 
 END
 
@@ -85,7 +85,7 @@ CreateFolder () {
 }
 
 Configs () {
-    repo_folder="$HOME/repos"
+    repo_folder="~/repos"
 	CreateFolder $repo_folder	
 
     echo "INFO - Config setup"
@@ -108,14 +108,14 @@ Configs () {
     conf_dir="~/repos/configs"
     for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" ".config/awesome"
     do
-        rm -rf $HOME/$conf_file
+        rm ~/$conf_file
         cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
         eval $cmd
     done
 }
 
 Scripts () {
-    repo_folder="$HOME/repos"
+    repo_folder="~/repos"
 	CreateFolder $repo_folder	
 
 	echo "INFO - Scripts setup"
@@ -133,7 +133,7 @@ Scripts () {
 
 	echo "INFO - symlinking scripts"
     # symlinking $home/bin
-    ln -s $HOME/repos/scripts/ $HOME/bin
+    ln -s ~/repos/scripts/ ~/bin
 }
 
 PullAllRepos () {
@@ -186,9 +186,6 @@ while getopts "imsu" opt; do
 		installSpotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh
-
-		# Cleaning up / removing itself
-		rm -rf setup.sh
 	;;
 	# -minimal
 	m)

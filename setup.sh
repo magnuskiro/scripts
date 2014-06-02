@@ -198,7 +198,6 @@ while getopts "imsu" opt; do
 	# invalid options 
     \?) echo "Invalid option: -$OPTARG" >&2 ;;
   esac
-:w
 done 
 
 exit

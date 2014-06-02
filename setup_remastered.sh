@@ -23,14 +23,13 @@ END
 AddSpotifyToSource () {
     # add spotify sources.list
     sudo chmod 777 /etc/apt/sources.list
-    sudo echo "deb http://repository.spotify.com stable non-free" >>
-    /etc/apt/sources.list
+    sudo echo "deb http://repository.spotify.com stable non-free" >> /etc/apt/sources.list
     sudo chmod 644 /etc/apt/sources.list
     sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 94558F59
 }
 
 AddOwnCloudToSource (){
-
+	echo ""
 }
 
 CreateFolders () {
@@ -43,7 +42,7 @@ CreateFolders () {
 }
 
 MinimalPackageInsall () {
-
+	echo ""
 }
 
 PackageInsall () {
@@ -63,11 +62,11 @@ PackageInsall () {
 }
 
 AptUpgrade () {
+	echo "INFO -- Upgrading"
 	# Doing System upgrade last.
-	# TODO test -y param.
 	sudo apt-get update 
-	sudo apt-get -y upgrade
-	sudo apt-get -y dist-upgrade
+	#sudo apt-get upgrade -y
+	sudo apt-get dist-upgrade -y
 }
 
 GenerateSSH () {
@@ -94,7 +93,6 @@ CloneRepos () {
     gitUser="magnuskiro"
     repo_folder="repos"
 
-	# TODO move scripts to ~/bin
 	# TODO add all repos, dusken, kodekollektivet and more.
     for repo in "configs" "scripts" "magnuskiro.github.com"
     do
@@ -122,7 +120,6 @@ CreateSymlinks () {
 	# Other
 	# symlinking $home/bin
 	ln -s ~/repos/scripts/ ~/bin
-	
 }
 
 LaptopSpecifics () {
@@ -143,6 +140,8 @@ while getopts "imsu" opt; do
 		# install stuff. 
 		# and configure everything 
 		echo "-a was specified"  
+		# Cleaning up / removing itself
+		rm ~/setup.sh
 	;;
 	# -minimal
 	m)
@@ -152,24 +151,19 @@ while getopts "imsu" opt; do
 	;;
 	# -server 
     s)  
-		# install minimum for running, quite like minila
+		# install minimum for running, quite like minimal
 		# download configs, and setup vim, gitconfig and such.
 		echo "arg given to b is $OPTARG" 
 	;;
 	# -upgrade
     u)  
 		# and another one. 
-		echo "INFO -- Upgrading"
-		#sudo apt-get update
-		#sudo apt-get dist-upgrade -y
+		AptUpgrade
 	;;
 	# invalid options 
     \?) echo "Invalid option: -$OPTARG" >&2 ;;
   esac
 done 
-
-# Cleaning up / removing itself
-rm ~/setup.sh
 
 exit()
 

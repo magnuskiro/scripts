@@ -106,12 +106,13 @@ Configs () {
 	echo "INFO - Creating symlinks"
 	# Config links
     conf_dir="~/repos/configs"
-    for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" ".config/awesome"
+    for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" 
     do
         rm ~/$conf_file
         cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
         eval $cmd
     done
+	ln -s "$conf_dir/awesome" ~/".config/awesome"
 }
 
 Scripts () {

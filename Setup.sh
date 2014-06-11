@@ -37,10 +37,10 @@ PackageInstall () {
 	
 	packages= "
 	exuberant-ctags libparse-exuberantctags-perl xclip 
-	ssmtp 
+	ssmtp screen
 	awesome awesome-extra xscreensaver 
 	gnome-do filezilla owncloud-client xcfe4-terminal 
-    evince pdflatex texlive-latex-extra inotify-tools 
+	evince pdflatex texlive-latex-extra inotify-tools 
 	eog	vlc
     "
 

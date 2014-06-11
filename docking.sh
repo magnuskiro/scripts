@@ -71,6 +71,7 @@ single_screen () {
 # no arguments 
 if [ $# -eq 0 ];
 then
+	# reset screen resolution to standard.
 	reset_screen
     exit 1
 fi
@@ -102,7 +103,7 @@ while getopts "dhrpp:s" opt; do
     s)  
 		single_screen
 	;;
-	# default / invalig option
+	# default / invalid option
     \?) 
 		echo "Invalid option: -$OPTARG, use '-h' for help." >&2 
 	;;

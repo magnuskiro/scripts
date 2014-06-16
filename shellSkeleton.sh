@@ -56,5 +56,5 @@ while getopts "ab:c:" opt; do
   esac
 done 
 
-exit()
+exit
 

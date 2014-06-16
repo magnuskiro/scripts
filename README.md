@@ -16,5 +16,6 @@ Scripts created in association with Under Dusken and Mediastud.
 Maybe not the most important of them, but definetlly one of the more usefull
 ones. Just insert line into linux terminal to setup the local system environment to my liking.
 
-	wget https://raw.github.com/magnuskiro/scripts/master/setup.sh && chmod 755	setup.sh && ./setup.sh
-
+    wget \
+    https://raw.githubusercontent.com/magnuskiro/scripts/master/setup.sh \
+    && chmod 755 ./setup.sh && ./setup.sh && rm /setup.sh 

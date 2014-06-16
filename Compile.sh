@@ -37,6 +37,9 @@ compiling twice because once might not do the trick.
 * -h : help, should print the usage of the script. 
 * opening a filename with more than one . (dot)
 * -es cleanup should remove .blg .bbl .aux
+* loggin not working correctly.
+* need some refactoring to.
+* catch ctrl +c and then do cleanup. 
 
 END
 
@@ -52,10 +55,11 @@ log=""
 
 #### Functions
 Cleanup (){
+	#TODO fix log output for single compile
+	# needed files: .bbl .blg .aux
     # removes garbage after compile. 
 	logFile=`echo "$texFile" | cut -d'.' -f1`.log
-	# *.aux
-    rm -f *.toc *.out *.snm *.nav *.dvi *.lof $logFile $1 
+    rm -f *.toc *.out *.snm *.nav *.dvi *.lof *.lol *.lot  $logFile $1 
 }
 WordCount () {
 	# get the  wordcount for the current document. 
@@ -96,7 +100,7 @@ Compile () {
 	pdf=`echo "$1" | cut -d'.' -f1`.pdf
 	name=`echo "$1" | cut -d'.' -f1`
 
-    # if log file texFile is provided.  
+    # if log file texFile is provided. #todo what comment? 
     if [ "$log" =  "" ];
     then
         execString="pdflatex -interaction nonstopmode $texFile > /dev/null "
@@ -169,5 +173,8 @@ while getopts "es:l:" opt; do
 done 
 
 Compile $texFile
+
+# command to check if fonts are embedded in the pdf. 
+#pdffonts $pdf
 exit 1
 

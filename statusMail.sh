@@ -19,9 +19,12 @@ This will execute the statusMail script each day at 07:00.
 And update the /etc/ssmtp/ssmtp.conf with the config file. 
 
 END
- 
-rm /tmp/emailmessage.txt 
+
 EMAILMESSAGE="/tmp/emailmessage.txt"
+if [ -e "$EMAILMESSAGE" ]
+then  
+	rm $EMAILMESSAGE 
+fi
 
 hostname=`hostname`
 

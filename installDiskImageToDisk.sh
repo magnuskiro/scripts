@@ -26,9 +26,8 @@ END
 imageLocation="http://magnuskiro.no/distroImages/"
 imageName="distro.image.gz"
 
-installDisk=""
-installPart=""
-storagePart=""
+# the folder to mount the storage partition
+storageMountFolder="/media/storage/"
 
 # info:
 # http://unixgeek.wordpress.com/2007/07/08/scripting-partition-creation-in-linux-using-fdisk/
@@ -51,7 +50,7 @@ install () {
 		# abort if not a valid image
 
 	# select hdd to install on
-    read -p "Which disk to work on? eg: /dev/sda" $installDisk
+	read -p "Which disk to work on? eg: /dev/sda " installDisk
 	echo "INFO - The device is: '$installDisk'"
 	installPart=$installDisk"1"
 	echo "INFO - The install partition is: '$installPart'"
@@ -68,16 +67,26 @@ install () {
 	mkntfs -Q $installPart
 	mkntfs -Q $storagePart
 
+    # mount storage place for image.
+    mkdir $storageMountFolder
+    `mount $storagePart $storageMountFolder`
+    echo "INFO - Mounted storage location"	
+
+	# download image file
+	cd $storageMountFolder
+	`wget $imageLocation$imageName` 
+
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
 	echo "INFO - Writing image to partition"
-	gunzip -c $imageLocation$imageName | dd of=$installPart conv=sync,noerror bs=64K 
+	gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K 
   
 	echo "INFO - Finished"
 }
 
 createImage (){
 	echo "INFO - Image name: "$1
+	#imageName=$1".image.gz"
 
 	# get the location to create image from
 	read -p "What disk to create image of?  eg: /dev/sda1 " installPart
@@ -86,13 +95,8 @@ createImage (){
 	read -p "Where to store the image? eg: /dev/sda2 " storagePart
 	echo "INFO - Image storage partition: '$storagePart'"
 
-	#imageName=$1".image.gz"
-	# the folder to mount the storage partition
-	storageMountFolder="/media/storage/"	
-
 	# mount storage place for image to be created.
 	mkdir $storageMountFolder
-	echo "mount $storagePart $storageMountFolder"
 	`mount $storagePart $storageMountFolder`
 	echo "INFO - Mounted storage location"
 		
@@ -114,10 +118,8 @@ while getopts "c:d:" opt; do
 	c)
 		createImage $2
 	;;
-	# -d - distro
+	# -d - install image to disk
     d)  
-		# here we do stuffs 
-		echo "-a was specified"  
 		install $2 
 	;;
 	# invalid options 

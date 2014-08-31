@@ -64,12 +64,6 @@ echo $1
 	mkntfs -Q $installPart
 	mkntfs -Q $storagePart
 
-	# mount partitions
-	mkdir /media/storage
-	mkdir /media/install	
-	mount $storagePart /media/storage
-	mount $installPart /media/install
-
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
 	gunzip -c $imageLocation$imageName | dd of=$installPart conv=sync,noerror bs=64K 
@@ -77,10 +71,14 @@ echo $1
 }
 
 createImage (){
+	echo "INFO - image name: "$1
+
 	# get the location to create image from
-	read -p "What disk to create image of?  eg: /dev/sda1" $installPart
+	read -p "What disk to create image of?  eg: /dev/sda1 " $installPart
+	echo "INFO - image source partition: "$installPart
 	# get the location where the disk image should be stored
 	read -p "Where to store the image? eg: /dev/sda2 " $storagePart
+	echo "INFO - image storage partition: "$storagePart
 
 	#imageName=$1".image.gz"
 	$imageName="distro.image.gz"
@@ -93,7 +91,7 @@ createImage (){
 	
 	# make byte image
 	# info: 'http://www.linuxweblog.com/dd-image' point 5
-	dd if=$installPart conv=sync,noerror bs=64K | gzip -c > $storage$imageName
+	#dd if=$installPart conv=sync,noerror bs=64K | gzip -c > $storage$imageName
 }
 
 # Input gathering. 

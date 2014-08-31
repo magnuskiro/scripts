@@ -60,12 +60,12 @@ install () {
 	# partition disk
 	# 90gb + rest.
 	echo "INFO - Creating partitions"
-	fdisk $installDisk < $fdiskInput	
+	`fdisk $installDisk < $fdiskInput`
 
 	# format partitions with ntfs filesystem	
 	echo "INFO - Formatting partitions"
-	mkntfs -Q $installPart
-	mkntfs -Q $storagePart
+	`mkntfs -Q $installPart`
+	`mkntfs -Q $storagePart`
 
     # mount storage place for image.
     mkdir $storageMountFolder
@@ -80,7 +80,7 @@ install () {
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
 	echo "INFO - Writing image to partition"
-	gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K 
+	`gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K`
   
 	echo "INFO - Finished"
 }
@@ -104,7 +104,7 @@ createImage (){
 	# make byte image
 	# info: 'http://www.linuxweblog.com/dd-image' point 5
 	echo "INFO - Creating image file"
-	dd if=$installPart conv=sync,noerror bs=64K | gzip -c > $storageMountFolder$imageName
+	`dd if=$installPart conv=sync,noerror bs=64K | gzip -c > $storageMountFolder$imageName`
 	echo "INFO - Finished"
 }
 

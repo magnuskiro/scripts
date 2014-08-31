@@ -46,39 +46,45 @@ w
 "
 
 install () {
-echo $1
+	echo $1
 	# verify disk image name
 		# abort if not a valid image
-		$imageName=""
 
 	# select hdd to install on
     read -p "Which disk to work on? eg: /dev/sda" $installDisk
+	echo "INFO - The device is: '$installDisk'"
 	installPart=$installDisk"1"
+	echo "INFO - The install partition is: '$installPart'"
 	storagePart=$installDisk"2"
+	echo "INFO - The storage partition is '$storagePart'"
 
 	# partition disk
 	# 90gb + rest.
+	echo "INFO - Creating partitions"
 	fdisk $installDisk < $fdiskInput	
 
 	# format partitions with ntfs filesystem	
+	echo "INFO - Formatting partitions"
 	mkntfs -Q $installPart
 	mkntfs -Q $storagePart
 
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
+	echo "INFO - Writing image to partition"
 	gunzip -c $imageLocation$imageName | dd of=$installPart conv=sync,noerror bs=64K 
   
+	echo "INFO - Finished"
 }
 
 createImage (){
-	echo "INFO - image name: "$1
+	echo "INFO - Image name: "$1
 
 	# get the location to create image from
 	read -p "What disk to create image of?  eg: /dev/sda1 " installPart
-	echo "INFO - image source partition: '$installPart'"
+	echo "INFO - Image source partition: '$installPart'"
 	# get the location where the disk image should be stored
 	read -p "Where to store the image? eg: /dev/sda2 " storagePart
-	echo "INFO - image storage partition: '$storagePart'"
+	echo "INFO - Image storage partition: '$storagePart'"
 
 	#imageName=$1".image.gz"
 	# the folder to mount the storage partition
@@ -88,13 +94,13 @@ createImage (){
 	mkdir $storageMountFolder
 	echo "mount $storagePart $storageMountFolder"
 	`mount $storagePart $storageMountFolder`
-	echo "INFO - mounted storage location"
+	echo "INFO - Mounted storage location"
 		
 	# make byte image
 	# info: 'http://www.linuxweblog.com/dd-image' point 5
-	echo "INFO - creating image file"
+	echo "INFO - Creating image file"
 	dd if=$installPart conv=sync,noerror bs=64K | gzip -c > $storageMountFolder$imageName
-	echo "INFO - finished"
+	echo "INFO - Finished"
 }
 
 # Input gathering. 

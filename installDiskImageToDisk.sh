@@ -59,15 +59,15 @@ install () {
 
 	# partition disk
 	# 90gb + rest.
-	`echo $fdiskInput >> fdisk.input`
 	echo "INFO - Creating partitions"
-	`fdisk $installDisk < fdisk.input`
-	`rm fdisk.input`
+	echo $fdiskInput >> fdisk.input
+	fdisk $installDisk < fdisk.input
+	rm fdisk.input
 
 	# format partitions with ntfs filesystem	
 	echo "INFO - Formatting partitions"
-	`mkntfs -Q $installPart`
-	`mkntfs -Q $storagePart`
+	mkntfs -Q $installPart
+	mkntfs -Q $storagePart
 
     # mount storage place for image.
     mkdir $storageMountFolder

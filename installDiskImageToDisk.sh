@@ -61,9 +61,9 @@ install () {
 	# partition disk
 	# 90gb + rest.
 	echo "INFO - Creating partitions"
+	rm fdisk.input
 	printf $fdiskInput >> fdisk.input
 	fdisk $installDisk < fdisk.input
-	rm fdisk.input
 
 	# format partitions with ntfs filesystem	
 	echo "INFO - Formatting partitions"

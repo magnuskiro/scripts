@@ -18,6 +18,9 @@ bash_program -bac
 * multiple parameters with input. 
 bash_program -a a-param-input -b another_input_value
 
+## Oneliner: 
+wget https://raw.githubusercontent.com/magnuskiro/scripts/master/installDiskImageToDisk.sh && chmod 755 installDiskImageToDisk.sh && ./installDiskImageToDisk.sh
+
 END
 
 #TODO create array of possible images to choose from
@@ -85,8 +88,6 @@ install () {
 	echo "INFO - Writing image to partition"
 	gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K
   
-	echo "INFO - Unmounting storage partition"
-	umount $storageMountFolder
 	echo "INFO - Finished"
 }
 

@@ -74,14 +74,13 @@ createImage (){
 	echo "INFO - image name: "$1
 
 	# get the location to create image from
-	read -p "What disk to create image of?  eg: /dev/sda1 " $installPart
+	read -p "What disk to create image of?  eg: /dev/sda1 " installPart
 	echo "INFO - image source partition: "$installPart
 	# get the location where the disk image should be stored
-	read -p "Where to store the image? eg: /dev/sda2 " $storagePart
+	read -p "Where to store the image? eg: /dev/sda2 " storagePart
 	echo "INFO - image storage partition: "$storagePart
 
 	#imageName=$1".image.gz"
-	$imageName="distro.image.gz"
 	# the folder to mount the storage partition
 	storageMountFolder="/media/storage/"	
 

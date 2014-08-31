@@ -88,10 +88,13 @@ createImage (){
 	# mount storage place for image to be created.
 	mkdir $storageMountFolder
     mount $storagePart $storage
-	
+	echo "INFO - mounted storage location"
+		
 	# make byte image
 	# info: 'http://www.linuxweblog.com/dd-image' point 5
+	echo "INFO - creating image file"
 	#dd if=$installPart conv=sync,noerror bs=64K | gzip -c > $storage$imageName
+	echo "INFO - finished"
 }
 
 # Input gathering. 

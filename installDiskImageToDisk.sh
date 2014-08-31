@@ -74,6 +74,7 @@ install () {
 
 	# download image file
 	cd $storageMountFolder
+	echo "INFO - Downloading image"
 	`wget $imageLocation$imageName` 
 
 	# write image to disk partition

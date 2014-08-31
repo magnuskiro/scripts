@@ -31,17 +31,17 @@ storageMountFolder="/media/storage/"
 
 # info:
 # http://unixgeek.wordpress.com/2007/07/08/scripting-partition-creation-in-linux-using-fdisk/
-fdiskInput="n
-p
-1
-
-+90000M
-n
-p
-2
-
-
-w
+fdiskInput="n\n\
+p\n\
+1\n\
+\n\
++90000M\n\
+n\n\
+p\n\
+2\n\
+\n\
+\n\
+w\n\
 "
 
 install () {
@@ -79,12 +79,12 @@ install () {
 	echo "INFO - Downloading image"
 	`wget $imageLocation$imageName` 
 
-	`df -h`
+	df -h
 
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
 	echo "INFO - Writing image to partition"
-	`gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K`
+	gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K
   
 	echo "INFO - Finished"
 }

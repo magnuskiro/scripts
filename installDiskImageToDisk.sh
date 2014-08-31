@@ -86,7 +86,8 @@ createImage (){
 
 	# mount storage place for image to be created.
 	mkdir $storageMountFolder
-	echo "`mount $storagePart $storage`"
+#	`mount $storagePart $storage`
+	echo "mount $storagePart $storage"
 	echo "INFO - mounted storage location"
 		
 	# make byte image

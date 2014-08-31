@@ -61,9 +61,9 @@ install () {
 	# partition disk
 	# 90gb + rest.
 	echo "INFO - Creating partitions"
-	rm fdisk.input
 	printf $fdiskInput >> fdisk.input
 	fdisk $installDisk < fdisk.input
+	rm fdisk.input
 
 	# format partitions with ntfs filesystem	
 	echo "INFO - Formatting partitions"
@@ -80,13 +80,13 @@ install () {
 	echo "INFO - Downloading image"
 	`wget $imageLocation$imageName` 
 
-	df -h
-
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
 	echo "INFO - Writing image to partition"
 	gunzip -c $storageMountFolder$imageName | dd of=$installPart conv=sync,noerror bs=64K
   
+	echo "INFO - Unmounting storage partition"
+	umount $storageMountFolder
 	echo "INFO - Finished"
 }
 

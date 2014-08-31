@@ -59,8 +59,10 @@ install () {
 
 	# partition disk
 	# 90gb + rest.
+	`echo $fdiskInput >> fdisk.input`
 	echo "INFO - Creating partitions"
-	`fdisk $installDisk < $fdiskInput`
+	`fdisk $installDisk < fdisk.input`
+	`rm fdisk.input`
 
 	# format partitions with ntfs filesystem	
 	echo "INFO - Formatting partitions"

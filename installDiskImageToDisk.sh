@@ -31,7 +31,8 @@ storageMountFolder="/media/storage/"
 
 # info:
 # http://unixgeek.wordpress.com/2007/07/08/scripting-partition-creation-in-linux-using-fdisk/
-fdiskInput="n\n\
+fdiskInput="o\n\
+n\n\
 p\n\
 1\n\
 \n\
@@ -60,7 +61,7 @@ install () {
 	# partition disk
 	# 90gb + rest.
 	echo "INFO - Creating partitions"
-	echo $fdiskInput >> fdisk.input
+	printf $fdiskInput >> fdisk.input
 	fdisk $installDisk < fdisk.input
 	rm fdisk.input
 

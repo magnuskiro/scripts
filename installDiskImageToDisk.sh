@@ -77,6 +77,8 @@ install () {
 	echo "INFO - Downloading image"
 	`wget $imageLocation$imageName` 
 
+	`df -h`
+
 	# write image to disk partition
 	# info: 'http://www.linuxweblog.com/dd-image' point 7
 	echo "INFO - Writing image to partition"

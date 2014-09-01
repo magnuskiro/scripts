@@ -132,7 +132,8 @@ while getopts "c:d:" opt; do
 	# invalid options 
     \?) 
 		echo "Invalid option: -$OPTARG" >&2 
-		echo "Use: '-d imageName'"
+		echo "Use: '-c imageName' to create image"
+		echo "Use: '-d imageName' to write image"
 	;;
   esac
 done 

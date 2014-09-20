@@ -49,13 +49,13 @@ echo >> c:\script3.src list vol
 echo >> c:\script3.src exit
 diskpart < c:\script3.src
 del c:\script3.src
-set /P inputimg=[Enter the device letter of your cdrom or location of the image file.]
-set img=%inputimg%:
+set /P inputimg=[Enter the device letter of your cdrom or location of the image file. Write full path]
+set img=%inputimg%
 	echo ----------
 	echo Now set the device letter of the usb penn. 
 	echo ----------
-set /p inputusb=[usb Device letter] 
-set usb=%inputusb%:
+set /p inputusb=[usb Device letter, letter only, ':\' is added.] 
+set usb=%inputusb%:\
 cls
 	echo ----------
 	echo Chosen location for cd image is %img%

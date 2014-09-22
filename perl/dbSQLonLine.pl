@@ -6,7 +6,6 @@ my %object;
 my $sth;
 #my $contact_sth = $dbh->prepare("INSERT INTO domains VALUES(?,?,?,?,?,?)");
 
-print "hore----------------\n";
 
 #	get query from input.  
 my $sql = "";
@@ -14,11 +13,9 @@ foreach my $a (@ARGV){
 	$sql = $sql.$a;
 	#print $a."\n"; 
 }
-print $sql."\n";
+print "query: '".$sql."'\n";
 
 die unless defined $sql;
-
-exit();
 
 my $dbh;
 my $host = 'underdusken.no';
@@ -55,7 +52,7 @@ while ( my  @row = $search_sth->fetchrow_array ) {
 		}else {
 			print " ";
 		}
-		print "|"; 
+		print "\t"; 
 	}
 	print "\n";
 	$count ++;  

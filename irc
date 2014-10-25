@@ -1,4 +1,4 @@
 #!/bin/bash
 
-ircssh="ssh kiro@s.magnuskiro.no -p 40596 -t 'screen -RD -S irc irssi'"
+ircssh="ssh kiro@magnuskiro.no -p 40596 -t 'screen -RD -S irc irssi'"
 x-terminal-emulator -e "$ircssh"

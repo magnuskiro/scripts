@@ -48,7 +48,7 @@ echo "" >> $EMAILMESSAGE
 echo "Updates: " >> $EMAILMESSAGE
 # TODO should manage to run updte before the simulated upgrade. 
 #sudo apt-get update >> /dev/null
-echo `apt-get -s upgrade | grep "to upgrade"` >> $EMAILMESSAGE
+echo `apt-get -s upgrade | grep "upgrade"` >> $EMAILMESSAGE
 
 # print login status and session data to message body
 echo "" >> $EMAILMESSAGE

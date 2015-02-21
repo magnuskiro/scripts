@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ircssh="ssh kiro@192.168.10.20 -p 40596 -t 'screen -RD -S irc irssi'"
+x-terminal-emulator -e "$ircssh"

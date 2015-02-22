@@ -46,8 +46,9 @@ wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/echoAllI
 # print number of pending updates to the message body
 echo "" >> $EMAILMESSAGE
 echo "Updates: " >> $EMAILMESSAGE
-sudo apt-get update >> /dev/null
-echo `apt-get -s upgrade | tail -n 1` >> $EMAILMESSAGE
+# TODO should manage to run updte before the simulated upgrade. 
+#sudo apt-get update >> /dev/null
+echo `apt-get -s upgrade | grep "newly install"` >> $EMAILMESSAGE
 
 # print login status and session data to message body
 echo "" >> $EMAILMESSAGE

@@ -75,6 +75,21 @@ sub getSubjectHashFromAPI{
 	return $subjectHash;
 }
 
+# get readme line for Parent readme
+sub getParentReadmeLine{
+# the subject hash 
+    my $subjectHash = $_[0];
+    my $code = unidecode($subjectHash->{'course'}->{'code'});
+    # if the subject is not found in the api use the folder name as code. 
+    if ( not defined $code ){
+        $code = $_[1];
+    }
+
+	my $name = $subjectHash->{'course'}->{'name'};
+
+	return "* ".$code." - ".$name."\n";
+}
+
 # create readme content as string from the hash containing the subject info. 
 sub getReadmeHeadingFromHash{
     # the subject hash 
@@ -145,5 +160,25 @@ sub createReadmeFilesForSubjectsWithout{
     }
 }
 
-createReadmeFilesForSubjectsWithout();
+sub updateParentReadme{
+    # get directories in folder 
+    my @dirs = getDirsInDirectory(getcwd."/");
+
+    my $filename = getcwd."/README.md";
+
+    # for all found folders
+    for my $subject (@dirs){
+        # if the readme file does not exist. 
+    	my $subjectHash = getSubjectHashFromAPI($subject);
+	    open (FILE, ">> $filename") || die "problem opening $filename\n";
+
+		#print getParentReadmeLine($subjectHash, $subject);
+		print FILE getParentReadmeLine($subjectHash, $subject);
+
+	    close(FILE);
+    }
+}
+
+#createReadmeFilesForSubjectsWithout();
+updateParentReadme();
 exit(); 

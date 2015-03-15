@@ -64,7 +64,7 @@ projector_mode () {
 }
 
 single_screen () {
-	xrandr --output LVDS1 --auto --output VGA1 --primary --auto --left-of LVDS1
+	xrandr --output LVDS1 --auto --output VGA1 --primary --auto --right-of LVDS1
     echo "INFO-- Input External Screen - VGA"
 }
 

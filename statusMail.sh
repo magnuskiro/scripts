@@ -38,7 +38,7 @@ echo "Current IP: " >> $EMAILMESSAGE
 # 'ip987321' is the name of the temp file used to store the page containing my current ip. 
 # the perl program prints the ip addresses in the file. 
 # then the temp file is removed. 
-wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321
+wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321
 
 # this used to work. 
 #lynx --dump http://ipecho.net/plain >> $EMAILMESSAGE

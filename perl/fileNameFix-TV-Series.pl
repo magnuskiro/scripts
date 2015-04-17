@@ -29,18 +29,18 @@ closedir(DIR);
 
 for my $file (@files){
     print $file."\n";
-	$file =~ s/ - /-/;
-	$file =~ s/ /./g;
-	my $name = "";
-    if ($file =~ m/(.+)-(\d{3})(.+)/){
-		$name = $1.".S01E".$2.$3."\n"; 
-		print $name;
+	my $name = $file;
+	$name =~ s/ - /-/;
+	$name =~ s/ /./g;
+    if ($name =~ m/(.+)-(\d{3})(.+)/){
+		$name = $1.".S01E".$2.$3; 
+		#print $name."\n";
     }
-    elsif ($file =~ m/(.+)-(\d{2})(.+)/){
-        $name = $1.".S01E0".$2.$3."\n";    
-        print $name;
+    elsif ($name =~ m/(.+)-(\d{2})(.+)/){
+        $name = $1.".S01E0".$2.$3;    
+        #print $name."\n";
     }
-		#system("mv $file $name");
+	system("mv '$file' '$name'");
 }
 
 exit();

@@ -16,7 +16,7 @@ This might look like a security issue to have the password here, but the server 
 ownCloudBackup.sh
 
 ## Added to cron: 
-'0 5 * * 1 /home/repos/scripts/ownCloudBackup.sh'
+'0 5 * * 1 /home/kiro/repos/scripts/ownCloudBackup.sh'
 
 ## TODO
 

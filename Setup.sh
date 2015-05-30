@@ -18,15 +18,21 @@ bash_program -bac
 * multiple parameters with input. 
 bash_program -a a-param-input -b another_input_value
 
-Auto install command: 
+## Auto install command: 
 wget \
-https://raw.githubusercontent.com/magnuskiro/scripts/master/setup.sh \
-&& chmod 755 ./setup.sh && ./setup.sh && rm ./setup.sh 
+https://raw.githubusercontent.com/magnuskiro/scripts/master/Setup.sh \
+&& chmod 755 ./Setup.sh&& ./Setup.sh -f && rm ./Setup.sh 
+
+## TODO
+- create owncloud install script. 
+- Update this script and documentation. 
 
 END
 
 MinimalPackageInstall () {
-	packages="git ack-grep htop vim"
+	packages="
+	git ack-grep htop vim
+	"
 
 	echo "INFO - Installing minimal packages"
 	sudo apt-get install -y $packages
@@ -37,14 +43,12 @@ PackageInstall () {
 	
 	packages= "
 	exuberant-ctags libparse-exuberantctags-perl xclip 
-	ssmtp screen
-	awesome awesome-extra xscreensaver 
-	gnome-do filezilla owncloud-client xcfe4-terminal 
-	evince pdflatex texlive-latex-extra inotify-tools 
-	eog	vlc
+	ssmtp screen filezilla 
+	pdflatex texlive-latex-extra inotify-tools 
     "
+	#owncloud-client 
 
-	echo "INFO - Installing packages"
+	echo "INFO - Installing extra packages"
 	sudo apt-get install -y $packages
 
 }
@@ -84,74 +88,21 @@ CreateFolder () {
 	fi 
 }
 
-Configs () {
-    repo_folder="repos"
-	CreateFolder ~/$repo_folder	
-
-    echo "INFO - Config setup"
-	echo "INFO - Cloning configs"
-    gitUser="magnuskiro"
-    repo="configs" 
-
-	# take true parameter to use https. 
-	if [ 1 -eq $1 ] 
-	then
-		echo "INFO - Cloning HTTPS"
-    	git clone https://github.com/$gitUser/$repo.git ~/$repo_folder/$repo
-	else
-		echo "INFO - Cloning SSH"
-    	git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
-	fi
-    
-	echo "INFO - Creating symlinks"
-	# Config links
-    conf_dir="~/repos/configs"
-    for conf_file in ".vim" ".vimrc" ".bashrc" ".profile" ".gitconfig" 
-    do
-        rm ~/$conf_file
-        cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
-        eval $cmd
-    done
-	ln -s "$conf_dir/awesome" ~/".config/awesome"
-}
-
-Scripts () {
-    repo_folder="repos"
-	CreateFolder ~/$repo_folder	
-
-	echo "INFO - Scripts setup"
-    echo "INFO - Cloning scripts"
-    gitUser="magnuskiro"
-    repo="scripts" 
-
-    # take true parameter to use https. 
-    if [ 1 -eq $1 ] 
-    then
-		echo "INFO - Cloning HTTPS"
-        git clone https://github.com/$gitUser/$repo.git ~/$repo_folder/$repo
-    else
-		echo "INFO - Cloning SSH"
-        git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
-    fi
-
-	echo "INFO - symlinking scripts"
-    # symlinking $home/bin
-    ln -s ~/repos/scripts/ ~/bin
-}
-
 PullAllRepos () {
 	echo "INFO - Pulling all repos"
-	#TODO fix
+	#TODO fix. 
 }
 
-ClonePersonalRepos () {
+CloneRepos () {
+	CreateFolder ~/$repo_folder
     # clone projects from git.
     echo "INFO - Cloning projects"
     gitUser="magnuskiro"
     repo_folder="repos"
 
+	repos=( "scripts" "configs" "ntnu" "magnuskiro.github.com" )
 	# TODO add all repos, dusken, kodekollektivet and more.
-    for repo in "magnuskiro.github.com" "ntnu"
+    for repo in "${repos[@]}" 
     do
         # if folder not exists.
 		# TODO test, might be buggy. repos not directly in home. 
@@ -159,6 +110,41 @@ ClonePersonalRepos () {
             git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
         fi
     done
+}
+
+CreateSymlinks (){
+    echo "INFO - Creating symlinks"
+
+	ln -s ~/repos/scripts/ ~/bin
+    #ln -s "$conf_dir/awesome" ~/".config/awesome"
+
+    # Config links
+    conf_dir="~/repos/configs"
+	configs=( ".vim" ".vimrc" ".gitconfig" ".bash_aliases" )
+    for conf_file in "${cofigs[@]}" 
+    do
+        rm ~/$conf_file
+        cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
+        eval $cmd
+    done
+}
+
+AppendPathVariablesToProfile (){
+echo "
+
+# extra path variables for development and such.
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_25
+export JDK_HOME=$JAVA_HOME/bin
+export M2_HOME=/usr/local/apache-maven
+export M2=$M2_HOME/bin
+export IDEA=/usr/local/idea/bin
+export PYCHARM=/usr/local/pycharm/bin
+export PLAY=/usr/local/play
+export ACTIVATOR=/usr/local/activator
+
+export PATH=$PATH:$M2_HOME:$M2:$JAVA_HOME:$JDK_HOME:$IDEA:$PYCHARM:$PLAY:$ACTIVATOR
+" >> .profile
+
 }
 
 LaptopSpecifics () {
@@ -171,7 +157,7 @@ LaptopSpecifics () {
 # 'b:' means that we have a possible -b parameter with a following variable. 
 # 'a' means that we have a possible parameter without a following input.
 # the sequence of options matters. '-b input -a' might give faulty results. 
-while getopts "imsu" opt; do
+while getopts "isu" opt; do
 # -u(pdate), -i(nstall),-s(server) 
   case $opt in
 	# -Full
@@ -182,21 +168,20 @@ while getopts "imsu" opt; do
 		PackageInstall
 		# create ssh keys so we can push to git. 
 		CreateSSHkeys
-		# configure everything 
-		Configs
-		Scripts
-
+		# pull repos
+		CloneRepos
+		# create symlinks
+		CreateSymlinks	
+		# set path variables to .profile
+		AppendPathVariablesToProfile
+	
 		installSpotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh
 	;;
-	# -minimal
-	m)
-		# install a bare minimum to work. 
-		# vim, git, htop, ack-grep
-		MinimalPackageInstall
-		# Configure
-		Configs 1
+	# LaptopSpecifics, add laptop config, see method. 
+	l)
+		LaptopSpecifics
 	;;
 	# -server 
     s)  

@@ -41,8 +41,7 @@ MinimalPackageInstall () {
 PackageInstall () {
 	MinimalPackageInstall
 	
-	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen \
-filezilla pdflatex texlive-latex-extra inotify-tools"
+	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen filezilla pdflatex texlive-latex-extra inotify-tools"
 	#owncloud-client 
 
 	echo "INFO - Installing extra packages"

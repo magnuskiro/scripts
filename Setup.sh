@@ -34,7 +34,7 @@ MinimalPackageInstall () {
 	git ack-grep htop vim
 	"
 
-	echo "INFO - Installing minimal packages"
+	echo "-- INFO - Installing minimal packages"
 	sudo apt-get install -y $packages
 }
 
@@ -45,13 +45,13 @@ PackageInstall () {
 filezilla texlive texlive-latex-extra inotify-tools"
 	#owncloud-client 
 
-	echo "INFO - Installing extra packages"
+	echo "-- INFO - Installing extra packages"
 	sudo apt-get install -y $packages
 
 }
 
 AptUpgrade () {
-	echo "INFO -- Upgrading"
+	echo "-- INFO -- Upgrading"
 	# Doing System upgrade last.
 	sudo apt-get update 
 	#sudo apt-get upgrade -y
@@ -59,7 +59,7 @@ AptUpgrade () {
 }
 
 CreateSSHkeys () {
-    echo "INFO - SSH"
+    echo "-- INFO - SSH"
     echo "!-----"
     cd ~/.ssh
 	# if no ssh key, generate it. 
@@ -86,14 +86,14 @@ CreateFolder () {
 }
 
 PullAllRepos () {
-	echo "INFO - Pulling all repos"
+	echo "-- INFO - Pulling all repos"
 	#TODO fix. 
 }
 
 CloneRepos () {
+    echo "-- INFO - Cloning projects"
 	CreateFolder ~/$repo_folder
     # clone projects from git.
-    echo "INFO - Cloning projects"
     gitUser="magnuskiro"
     repo_folder="repos"
 
@@ -103,14 +103,14 @@ CloneRepos () {
     do
         # if folder not exists.
 		# TODO test, might be buggy. repos not directly in home. 
-        if [ ! -d "./"$repo ]; then
+        if [ ! -d ~/$repo_folder/$repo ]; then
             git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
         fi
     done
 }
 
 CreateSymlinks (){
-    echo "INFO - Creating symlinks"
+    echo "-- INFO - Creating symlinks"
 
 	ln -s ~/repos/scripts/ ~/bin
     #ln -s "$conf_dir/awesome" ~/".config/awesome"
@@ -120,9 +120,8 @@ CreateSymlinks (){
 	configs=( ".vim" ".vimrc" ".gitconfig" ".bash_aliases" )
     for conf_file in "${cofigs[@]}" 
     do
-        rm ~/$conf_file
-        cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
-        eval $cmd
+        `rm ~/$conf_file`
+        `ln -s $conf_dir/$conf_file ~/$conf_file`
     done
 }
 
@@ -172,6 +171,9 @@ while getopts "isu" opt; do
 		# set path variables to .profile
 		AppendPathVariablesToProfile
 	
+		# reload bashrc to enable new commands. 
+		source $HOME/.bashrc
+
 		installSpotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh

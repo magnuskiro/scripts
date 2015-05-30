@@ -117,11 +117,11 @@ CreateSymlinks (){
     conf_dir="~/repos/configs"
     for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases"
     do
-	location=$conf_dir/$conf_file
-	destination=./$conf_file
-	echo "Creating link: $location $destination"
+        location=$conf_dir/$conf_file
+		destination=./$conf_file
+		echo "Creating link: $location $destination"
         cmd="rm $destination && ln -s $location $destination"
-	eval $cmd	
+		eval $cmd	
     done
 }
 
@@ -157,7 +157,7 @@ while getopts "lisu" opt; do
 # -u(pdate), -i(nstall),-s(server) 
   case $opt in
     l) # create symlinks
-	CreateSymlinks
+		CreateSymlinks
     ;;
 	# -install
     i) 

@@ -30,18 +30,24 @@ END
 host="kiro@s.magnuskiro.no"
 port="40596"
 excludelist="$HOME/repos/configs/backup_excludelist"
-backupdir="~/backup/`hostname`_home_`date +%F`"
-source_dir="$HOME/"
+backupdir="$HOME/${PWD##*/}"
+source_dir="./"
 ssh="'ssh -p $port'"
 
 synchronize () {
 	# echo rsync -avzr $ssh /home/kiro/Steam $host:~/backup/new
-	rsync -rauvzPe 'ssh -p 40596' --exclude-from $excludelist $source_dir $host:$backupdir  
+	echo "Info -- source: $source_dir"
+	echo "Info -- destination: $backupdir"
+	rsync -auvzPe 'ssh -p 40596' --exclude-from $excludelist $source_dir $host:$backupdir  
 }
 
 # Input gathering. 
 while getopts "he:" opt; do
   case $opt in
+	b)
+		backupdir="~/backup/`hostname`_home_`date +%F`"
+		source_dir="$HOME/"
+	;;
 	e)
 		excludelist=$OPTARG
 	;;

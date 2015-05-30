@@ -78,9 +78,9 @@ CreateSSHkeys () {
 
 CreateFolder () {
     folder=$1
-	echo $folder
     if [ ! -d "$folder" ] 
 	then 
+		echo "Creating folder:" $folder
         mkdir "$folder"
 	fi 
 }
@@ -120,6 +120,7 @@ CreateSymlinks (){
 	configs=( ".vim" ".vimrc" ".gitconfig" ".bash_aliases" )
     for conf_file in "${cofigs[@]}" 
     do
+		echo "Creating link:" $conf_file 
         `rm ~/$conf_file`
         `ln -s $conf_dir/$conf_file ~/$conf_file`
     done

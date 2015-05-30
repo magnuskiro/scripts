@@ -19,7 +19,7 @@ bash_program -bac
 bash_program -a a-param-input -b another_input_value
 
 ## Auto install command: 
-wget \
+wget --no-cache \
 https://raw.githubusercontent.com/magnuskiro/scripts/master/Setup.sh \
 && chmod 755 ./Setup.sh && ./Setup.sh -i && rm ./Setup.sh 
 
@@ -41,7 +41,8 @@ MinimalPackageInstall () {
 PackageInstall () {
 	MinimalPackageInstall
 	
-	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen filezilla pdflatex texlive-latex-extra inotify-tools"
+	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
+filezilla texlive texlive-latex-extra inotify-tools"
 	#owncloud-client 
 
 	echo "INFO - Installing extra packages"

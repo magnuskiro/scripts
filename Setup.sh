@@ -21,7 +21,7 @@ bash_program -a a-param-input -b another_input_value
 ## Auto install command: 
 wget \
 https://raw.githubusercontent.com/magnuskiro/scripts/master/Setup.sh \
-&& chmod 755 ./Setup.sh&& ./Setup.sh -f && rm ./Setup.sh 
+&& chmod 755 ./Setup.sh && ./Setup.sh -i && rm ./Setup.sh 
 
 ## TODO
 - create owncloud install script. 
@@ -160,8 +160,8 @@ LaptopSpecifics () {
 while getopts "isu" opt; do
 # -u(pdate), -i(nstall),-s(server) 
   case $opt in
-	# -Full
-    f) 
+	# -install
+    i) 
 		# Upgrade system
 		AptUpgrade
 		# install stuff. 

@@ -98,11 +98,9 @@ CloneRepos () {
     repo_folder="repos"
 
 	repos=( "scripts" "configs" "ntnu" "magnuskiro.github.com" )
-	# TODO add all repos, dusken, kodekollektivet and more.
     for repo in "${repos[@]}" 
     do
         # if folder not exists.
-		# TODO test, might be buggy. repos not directly in home. 
         if [ ! -d ~/$repo_folder/$repo ]; then
             git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
         fi
@@ -112,7 +110,7 @@ CloneRepos () {
 CreateSymlinks (){
     echo "-- INFO - Creating symlinks"
 
-	ln -s ~/repos/scripts/ ~/bin
+	rm ~/bin &&	ln -s ~/repos/scripts/ ~/bin
     #ln -s "$conf_dir/awesome" ~/".config/awesome"
 
     # Config links

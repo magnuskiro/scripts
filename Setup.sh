@@ -34,7 +34,7 @@ MinimalPackageInstall () {
 	git ack-grep htop vim
 	"
 
-	echo "INFO - Installing minimal packages"
+	echo "-- INFO - Installing minimal packages"
 	sudo apt-get install -y $packages
 }
 
@@ -45,13 +45,13 @@ PackageInstall () {
 filezilla texlive texlive-latex-extra inotify-tools"
 	#owncloud-client 
 
-	echo "INFO - Installing extra packages"
+	echo "-- INFO - Installing extra packages"
 	sudo apt-get install -y $packages
 
 }
 
 AptUpgrade () {
-	echo "INFO -- Upgrading"
+	echo "-- INFO -- Upgrading"
 	# Doing System upgrade last.
 	sudo apt-get update 
 	#sudo apt-get upgrade -y
@@ -59,7 +59,7 @@ AptUpgrade () {
 }
 
 CreateSSHkeys () {
-    echo "INFO - SSH"
+    echo "-- INFO - SSH"
     echo "!-----"
     cd ~/.ssh
 	# if no ssh key, generate it. 
@@ -78,51 +78,50 @@ CreateSSHkeys () {
 
 CreateFolder () {
     folder=$1
-	echo $folder
     if [ ! -d "$folder" ] 
 	then 
+		echo "Creating folder:" $folder
         mkdir "$folder"
 	fi 
 }
 
 PullAllRepos () {
-	echo "INFO - Pulling all repos"
+	echo "-- INFO - Pulling all repos"
 	#TODO fix. 
 }
 
 CloneRepos () {
-	CreateFolder ~/$repo_folder
+    echo "-- INFO - Cloning projects"
+    CreateFolder ~/$repo_folder
     # clone projects from git.
-    echo "INFO - Cloning projects"
     gitUser="magnuskiro"
     repo_folder="repos"
 
-	repos=( "scripts" "configs" "ntnu" "magnuskiro.github.com" )
-	# TODO add all repos, dusken, kodekollektivet and more.
+    repos=( "scripts" "configs" "ntnu" "magnuskiro.github.com" )
     for repo in "${repos[@]}" 
     do
         # if folder not exists.
-		# TODO test, might be buggy. repos not directly in home. 
-        if [ ! -d "./"$repo ]; then
+        if [ ! -d ~/$repo_folder/$repo ]; then
             git clone git@github.com:$gitUser/$repo.git ~/$repo_folder/$repo
         fi
     done
 }
 
 CreateSymlinks (){
-    echo "INFO - Creating symlinks"
+    echo "-- INFO - Creating symlinks"
 
-	ln -s ~/repos/scripts/ ~/bin
+    rm ~/bin &&	ln -s ~/repos/scripts/ ~/bin
     #ln -s "$conf_dir/awesome" ~/".config/awesome"
 
     # Config links
     conf_dir="~/repos/configs"
-	configs=( ".vim" ".vimrc" ".gitconfig" ".bash_aliases" )
-    for conf_file in "${cofigs[@]}" 
+    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases"
     do
-        rm ~/$conf_file
-        cmd="ln -s "$conf_dir"/"$conf_file" ~/"$conf_file
-        eval $cmd
+	location=$conf_dir/$conf_file
+	destination=./$conf_file
+	echo "Creating link: $location $destination"
+        cmd="rm $destination && ln -s $location $destination"
+	eval $cmd	
     done
 }
 
@@ -154,9 +153,12 @@ LaptopSpecifics () {
 # 'b:' means that we have a possible -b parameter with a following variable. 
 # 'a' means that we have a possible parameter without a following input.
 # the sequence of options matters. '-b input -a' might give faulty results. 
-while getopts "isu" opt; do
+while getopts "lisu" opt; do
 # -u(pdate), -i(nstall),-s(server) 
   case $opt in
+    l) # create symlinks
+	CreateSymlinks
+    ;;
 	# -install
     i) 
 		# Upgrade system
@@ -172,6 +174,9 @@ while getopts "isu" opt; do
 		# set path variables to .profile
 		AppendPathVariablesToProfile
 	
+		# reload bashrc to enable new commands. 
+		source $HOME/.bashrc
+
 		installSpotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh

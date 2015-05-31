@@ -42,7 +42,7 @@ PackageInstall () {
 	MinimalPackageInstall
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
-filezilla texlive texlive-latex-extra inotify-tools"
+filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome awesome-extra"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"
@@ -111,7 +111,7 @@ CreateSymlinks (){
     echo "-- INFO - Creating symlinks"
 
     rm ~/bin &&	ln -s ~/repos/scripts/ ~/bin
-    #ln -s "$conf_dir/awesome" ~/".config/awesome"
+    rm "~/.config/awesome" && ln -s "$conf_dir/awesome" ~/".config/awesome"
 
     # Config links
     conf_dir="~/repos/configs"

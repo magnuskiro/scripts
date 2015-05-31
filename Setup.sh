@@ -110,11 +110,17 @@ CloneRepos () {
 CreateSymlinks (){
     echo "-- INFO - Creating symlinks"
 
+	# linking bin to scripts folder, enabling direct cmd access to pesonal
+	# scripts. 
     rm ~/bin &&	ln -s ~/repos/scripts/ ~/bin
-    rm "~/.config/awesome" && ln -s "$conf_dir/awesome" ~/".config/awesome"
 
     # Config links
     conf_dir="~/repos/configs"
+
+	# awesome specifics. 
+    echo "Creating link: $conf_dir/awesome ~/.config/awesome"
+	eval "rm ~/.config/awesome && ln -s $conf_dir/awesome ~/.config/awesome"
+
     for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases"
     do
         location=$conf_dir/$conf_file

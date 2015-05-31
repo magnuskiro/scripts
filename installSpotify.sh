@@ -23,6 +23,7 @@ InstallSpotify () {
     sudo apt-get install -y spotify-client
 }
 
+echo "-- INFO - Installing Spotify"
 InstallSpotify
 
 

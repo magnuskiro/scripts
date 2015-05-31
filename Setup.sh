@@ -43,7 +43,7 @@ PackageInstall () {
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
 filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome
-awesome-extra xfce4-terminal eog vlc xscreensaver"
+awesome-extra xfce4-terminal eog vlc"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"
@@ -113,21 +113,24 @@ CreateSymlinks (){
 
 	# linking bin to scripts folder, enabling direct cmd access to pesonal
 	# scripts. 
-    rm ~/bin &&	ln -s ~/repos/scripts/ ~/bin
+    rm ~/bin
+	ln -s ~/repos/scripts/ ~/bin
 
     # Config links
     conf_dir="~/repos/configs"
 
 	# awesome specifics. 
     echo "Creating link: $conf_dir/awesome ~/.config/awesome"
-	eval "rm ~/.config/awesome && ln -s $conf_dir/awesome ~/.config/awesome"
+	rm ~/.config/awesome 
+	eval "ln -s $conf_dir/awesome ~/.config/awesome"
 
     for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases"
     do
         location=$conf_dir/$conf_file
 		destination=./$conf_file
 		echo "Creating link: $location $destination"
-        cmd="rm $destination && ln -s $location $destination"
+	rm $destination
+        cmd="ln -s $location $destination"
 		eval $cmd	
     done
 }
@@ -182,9 +185,10 @@ while getopts "lisu" opt; do
 		AppendPathVariablesToProfile
 	
 		# reload bashrc to enable new commands. 
-		source $HOME/.bashrc
+		echo "-- INFO - reloading .bashrc"
+		eval "source $HOME/.bashrc"
 
-		installSpotify.sh
+		~/repos/scripts/installSpotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh
 	;;

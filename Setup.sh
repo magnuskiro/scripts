@@ -42,7 +42,8 @@ PackageInstall () {
 	MinimalPackageInstall
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
-filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome awesome-extra"
+filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome
+awesome-extra xfce4-terminal eog vlc xscreensaver"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"
@@ -144,7 +145,7 @@ export PYCHARM=/usr/local/pycharm/bin
 export PLAY=/usr/local/play
 export ACTIVATOR=/usr/local/activator
 
-export PATH=$PATH:$M2_HOME:$M2:$JAVA_HOME:$JDK_HOME:$IDEA:$PYCHARM:$PLAY:$ACTIVATOR
+export PATH=\$PATH:\$M2_HOME:\$M2:\$JAVA_HOME:\$JDK_HOME:\$IDEA:\$PYCHARM:\$PLAY:\$ACTIVATOR
 " >> .profile
 
 }

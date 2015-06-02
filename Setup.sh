@@ -43,7 +43,7 @@ PackageInstall () {
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
 filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome
-awesome-extra xfce4-terminal eog vlc"
+awesome-extra xfce4-terminal eog vlc gnome-do"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"

@@ -137,19 +137,8 @@ CreateSymlinks (){
 
 AppendPathVariablesToProfile (){
 echo "
-
-# extra path variables for development and such.
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_25
-export JDK_HOME=$JAVA_HOME/bin
-export M2_HOME=/usr/local/apache-maven
-export M2=$M2_HOME/bin
-export IDEA=/usr/local/idea/bin
-export PYCHARM=/usr/local/pycharm/bin
-export PLAY=/usr/local/play
-export ACTIVATOR=/usr/local/activator
-
-export PATH=\$PATH:\$M2_HOME:\$M2:\$JAVA_HOME:\$JDK_HOME:\$IDEA:\$PYCHARM:\$PLAY:\$ACTIVATOR
-" >> .profile
+source ~/repos/configs/path_exports
+" >> ~/.profile
 
 }
 
@@ -185,8 +174,9 @@ while getopts "lisu" opt; do
 		AppendPathVariablesToProfile
 	
 		# reload bashrc to enable new commands. 
-		echo "-- INFO - reloading .bashrc"
+		echo "-- INFO - reloading .bashrc and .profile"
 		eval "source $HOME/.bashrc"
+		eval "source $HOME/.profile"
 
 		~/repos/scripts/installSpotify.sh
 		#TODO create script

@@ -43,7 +43,7 @@ PackageInstall () {
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
 filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome
-awesome-extra xfce4-terminal eog vlc gnome-do"
+awesome-extra xfce4-terminal eog vlc gnome-do maven"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"
@@ -178,7 +178,7 @@ while getopts "lisu" opt; do
 		eval "source $HOME/.bashrc"
 		eval "source $HOME/.profile"
 
-		~/repos/scripts/installSpotify.sh
+		~/repos/scripts/install_spotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh
 	;;

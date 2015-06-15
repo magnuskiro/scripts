@@ -77,7 +77,7 @@ then
 fi
 
 # Parsing input arguments 
-while getopts "dhrpp:s" opt; do
+while getopts "wdhrpp:s" opt; do
   case $opt in
 	# dual
     d)
@@ -102,6 +102,9 @@ while getopts "dhrpp:s" opt; do
 	# single screen + laptop. 
     s)  
 		single_screen
+	;;
+	w)
+	xrandr --output HDMI1 --auto --right-of DP2 --output DP2 --auto --primary --right-of eDP1 --output eDP1 --auto
 	;;
 	# default / invalid option
     \?) 

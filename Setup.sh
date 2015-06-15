@@ -43,7 +43,7 @@ PackageInstall () {
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
 filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome
-awesome-extra xfce4-terminal eog vlc gnome-do"
+awesome-extra xfce4-terminal eog vlc gnome-do xscreensaver"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"
@@ -124,7 +124,7 @@ CreateSymlinks (){
 	rm ~/.config/awesome 
 	eval "ln -s $conf_dir/awesome ~/.config/awesome"
 
-    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases"
+    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases" ".xscreensaver"
     do
         location=$conf_dir/$conf_file
 		destination=./$conf_file
@@ -137,7 +137,7 @@ CreateSymlinks (){
 
 AppendPathVariablesToProfile (){
 echo "
-source ~/repos/configs/path_exports
+eval \"source ~/repos/configs/path_exports\"
 " >> ~/.profile
 
 }

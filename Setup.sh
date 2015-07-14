@@ -136,9 +136,11 @@ CreateSymlinks (){
 }
 
 AppendPathVariablesToProfile (){
-echo "
-eval \"source ~/repos/configs/path_exports\"
-" >> ~/.profile
+#eval \"source ~/repos/configs/path_exports\"
+`cat ~/repos/configs/path_exports >> ~/.profile`
+#echo "
+#eval `source ~/repos/configs/path_exports`
+#" >> ~/.profile
 
 }
 

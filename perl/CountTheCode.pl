@@ -1,4 +1,11 @@
 #!/usr/bin/perl
+
+# ##
+# TODO: 
+# - make the script recurseive with -r paramater. Traversin all subfolders for files of the given parameters. 
+# 
+# ##
+
 use strict;
 use warnings;
 use Cwd;

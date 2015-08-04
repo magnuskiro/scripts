@@ -43,7 +43,7 @@ PackageInstall () {
 	
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
 filezilla texlive texlive-latex-extra inotify-tools openssh-server awesome
-awesome-extra xfce4-terminal eog vlc"
+awesome-extra xfce4-terminal eog vlc gnome-do xscreensaver maven"
 	#owncloud-client 
 
 	echo "-- INFO - Installing extra packages"
@@ -124,7 +124,7 @@ CreateSymlinks (){
 	rm ~/.config/awesome 
 	eval "ln -s $conf_dir/awesome ~/.config/awesome"
 
-    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases"
+    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases" ".xscreensaver"
     do
         location=$conf_dir/$conf_file
 		destination=./$conf_file
@@ -136,20 +136,11 @@ CreateSymlinks (){
 }
 
 AppendPathVariablesToProfile (){
-echo "
-
-# extra path variables for development and such.
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_25
-export JDK_HOME=$JAVA_HOME/bin
-export M2_HOME=/usr/local/apache-maven
-export M2=$M2_HOME/bin
-export IDEA=/usr/local/idea/bin
-export PYCHARM=/usr/local/pycharm/bin
-export PLAY=/usr/local/play
-export ACTIVATOR=/usr/local/activator
-
-export PATH=\$PATH:\$M2_HOME:\$M2:\$JAVA_HOME:\$JDK_HOME:\$IDEA:\$PYCHARM:\$PLAY:\$ACTIVATOR
-" >> .profile
+#eval \"source ~/repos/configs/path_exports\"
+`cat ~/repos/configs/path_exports >> ~/.profile`
+#echo "
+#eval `source ~/repos/configs/path_exports`
+#" >> ~/.profile
 
 }
 
@@ -185,10 +176,11 @@ while getopts "lisu" opt; do
 		AppendPathVariablesToProfile
 	
 		# reload bashrc to enable new commands. 
-		echo "-- INFO - reloading .bashrc"
+		echo "-- INFO - reloading .bashrc and .profile"
 		eval "source $HOME/.bashrc"
+		eval "source $HOME/.profile"
 
-		~/repos/scripts/installSpotify.sh
+		~/repos/scripts/install_spotify.sh
 		#TODO create script
 		#installOwnCloadClient.sh
 	;;

@@ -47,7 +47,9 @@ reset_screen () {
     xrandr --output HDMI1 --off
     xrandr --output VGA1 --off
 	xrandr --output DP1 --off
-    xrandr --output LVDS1 --auto
+	xrandr --output DP2 --off
+    xrandr --output LVDS1 --auto # thinkpad x201 laptop screen.
+    xrandr --output eDP1 --auto # netlight-kiro laptop screen.
 }
 
 projector_mode () {
@@ -77,7 +79,7 @@ then
 fi
 
 # Parsing input arguments 
-while getopts "dhrpp:s" opt; do
+while getopts "wdhrpp:s" opt; do
   case $opt in
 	# dual
     d)
@@ -102,6 +104,9 @@ while getopts "dhrpp:s" opt; do
 	# single screen + laptop. 
     s)  
 		single_screen
+	;;
+	w)
+	xrandr --output DP2 --auto --primary --output HDMI1 --auto --right-of DP2 --output eDP1 --auto --left-of DP2
 	;;
 	# default / invalid option
     \?) 

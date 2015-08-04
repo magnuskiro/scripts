@@ -12,40 +12,45 @@ Script to backup my home folder to my backup server.
 * defined an excludelist. 
 
 ## Use: 
-* Sitting at home where s.magnuskiro.no doesnt work. Using the IP adress instead:
-SynchronizeHome.sh -h
-* Normal: 
-SynchronizeHome.sh
+* Sitting at home where magnuskiro.no doesnt work. Using the IP adress instead:
+backuLocal.sh -h
+* Normal: copy this folder to the same folder on the server.  
+backupLocal.sh
+* exclude: sets specific exclude list. Not in addidtion to the predefined excludelist.
+backupLocal.sh -e .cpan .bashrc Downloads
 
-# TODO
-* update excludelist
-* -b backup
-* -s synchronize
-* -a all
-* -f spesific folder 
+
+* -b backup - full backup of the home directory. 
+* -e exclude following parameters. 
+* -h home - defines that the backup takes place on my home network. 
+
+
 
 END
 
-#variables
+# connection variables
 host="kiro@s.magnuskiro.no"
 port="40596"
-excludelist="$HOME/repos/configs/backup_excludelist"
-backupdir="$HOME/${PWD##*/}"
-source_dir="./"
 ssh="'ssh -p $port'"
 
+# exclude list
+excludelist="$HOME/repos/configs/backup_excludelist"
+
+# directories
+backup_dir=`pwd` # copying to this, standard: the current directory. Same as ./
+source_dir="./" # copying from this, standard: the current directory, ~= ./
+
 synchronize () {
-	# echo rsync -avzr $ssh /home/kiro/Steam $host:~/backup/new
 	echo "Info -- source: $source_dir"
-	echo "Info -- destination: $backupdir"
-	rsync -auvzPe 'ssh -p 40596' --exclude-from $excludelist $source_dir $host:$backupdir  
+	echo "Info -- destination: $host:$backup_dir"
+	rsync -auvzPe 'ssh -p 40596' --exclude-from $excludelist $source_dir $host:$backup_dir  
 }
 
-# Input gathering. 
+# Input parameter handling. 
 while getopts "bhe:" opt; do
   case $opt in
 	b)
-		backupdir="~/backup/`hostname`_home_`date +%F`"
+		backup_dir="~/backup/`hostname`_home_`date +%F`"
 		source_dir="$HOME/"
 	;;
 	e)
@@ -63,6 +68,8 @@ while getopts "bhe:" opt; do
   esac
 done 
 
+# basic functionality (without parameters) is that the current folder gets
+# synchronized with the same location on the remote server. 
 synchronize
 
 exit 1

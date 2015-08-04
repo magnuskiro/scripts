@@ -42,7 +42,7 @@ synchronize () {
 }
 
 # Input gathering. 
-while getopts "he:" opt; do
+while getopts "bhe:" opt; do
   case $opt in
 	b)
 		backupdir="~/backup/`hostname`_home_`date +%F`"

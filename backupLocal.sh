@@ -50,7 +50,7 @@ synchronize () {
 while getopts "sbhe:" opt; do
   case $opt in
 	b)
-		backupdir="~/backup/`hostname`_home_`date +%F`"
+		backup_dir="~/backup/`hostname`_home_`date +%F`"
 		source_dir="$HOME/"
 	;;
 	e)

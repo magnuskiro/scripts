@@ -38,7 +38,8 @@ echo "Current IP: " >> $EMAILMESSAGE
 # 'ip987321' is the name of the temp file used to store the page containing my current ip. 
 # the perl program prints the ip addresses in the file. 
 # then the temp file is removed. 
-wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321
+#wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321 
+wget -q -O ip987321 http://checkip.dyndns.org/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321 
 
 # this used to work. 
 #lynx --dump http://ipecho.net/plain >> $EMAILMESSAGE
@@ -46,8 +47,7 @@ wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/perl/ech
 # print number of pending updates to the message body
 echo "" >> $EMAILMESSAGE
 echo "Updates: " >> $EMAILMESSAGE
-# TODO should manage to run updte before the simulated upgrade. 
-#sudo apt-get update >> /dev/null
+sudo apt-get update >> /dev/null
 echo `apt-get -s upgrade | grep "newly install"` >> $EMAILMESSAGE
 
 # print login status and session data to message body

@@ -20,6 +20,16 @@ bash_program -a a-param-input -b another_input_value
 
 END
 
+# variable declarations
+screens=
+
+# functions
+get_screens_from_xrandr () {
+    # gets the name of the connected screens for this computer. 
+    screens=( $(xrandr | grep " connected" | grep -o "^[^ ]*") )
+    #echo ${screens[@]}
+}
+
 dual_screen () {
 	#xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
     xrandr --output LVDS1 --off
@@ -43,32 +53,56 @@ print_help () {
 }
 
 reset_screen () {
+
+    # set the first screen to what it should be.
+    echo ${screens[0]}
+    xrandr --output ${screens[0]} --auto
+
+    # turn off all other screens. 
+    for screen in "${screens[@]}"
+    do
+        if [ "$screen" != "${screens[0]}" ];
+        then 
+            echo $screen --same as ${screens[0]}
+            xrandr --output $screen --off
+        fi
+    done
+    echo INFO-- Reset configuration to first screen only. 
+
 	# reset screen resolutions.
-    xrandr --output HDMI1 --off
-    xrandr --output VGA1 --off
-	xrandr --output DP1 --off
-	xrandr --output DP2 --off
-    xrandr --output LVDS1 --auto # thinkpad x201 laptop screen.
-    xrandr --output eDP1 --auto # netlight-kiro laptop screen.
+    #xrandr --output HDMI1 --off
+    #xrandr --output VGA1 --off
+	#xrandr --output DP1 --off
+	#xrandr --output DP2 --off
+    #xrandr --output LVDS1 --auto # thinkpad x201 laptop screen.
+    #xrandr --output eDP1 --auto # netlight-kiro laptop screen.
 }
 
 projector_mode () {
-	if [ -n "$1" ];  
-    then 
-	# resolution input as arg
-        xrandr --output LVDS1 --mode $1 --output VGA1 --mode $1 --same-as LVDS1
-    else 
-	# standard resolution
-        std='1024x768'
-        xrandr --output LVDS1 --mode $std --output VGA1 --mode $std --same-as LVDS1
-    fi
-    echo "INFO-- Projector mode. Same image on both screens."
+
+    # set the first screen to what it should be.
+    echo ${screens[0]}
+    xrandr --output ${screens[0]} --auto
+
+    # set the rest as the same as the first one. 
+    for screen in "${screens[@]}"
+    do
+        if [ "$screen" != "${screens[0]}" ];
+        then 
+            echo $screen --same as ${screens[0]}
+            xrandr --output $screen --same-as ${screens[0]}
+        fi
+    done
+    echo "INFO-- Projector mode. Same image on all screens."
 }
 
 single_screen () {
 	xrandr --output LVDS1 --auto --output VGA1 --primary --auto --right-of LVDS1
     echo "INFO-- Input External Screen - VGA"
 }
+
+# execute
+get_screens_from_xrandr
 
 # no arguments 
 if [ $# -eq 0 ];
@@ -79,7 +113,7 @@ then
 fi
 
 # Parsing input arguments 
-while getopts "wdhrpp:s" opt; do
+while getopts "wdhrpp:st" opt; do
   case $opt in
 	# dual
     d)
@@ -99,7 +133,7 @@ while getopts "wdhrpp:s" opt; do
 	;;
 	# projector
 	p)
-		projector_mode $2
+		projector_mode
 	;;
 	# single screen + laptop. 
     s)  

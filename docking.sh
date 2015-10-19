@@ -56,7 +56,7 @@ reset_screen () {
 
     # set the first screen to what it should be.
     echo ${screens[0]}
-    xrandr --output ${screens[0]} --auto
+    xrandr --output ${screens[0]} --primary --auto
 
     # turn off all other screens. 
     for screen in "${screens[@]}"

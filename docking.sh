@@ -20,15 +20,6 @@ bash_program -a a-param-input -b another_input_value
 
 END
 
-# variable declarations
-screens=
-
-# functions
-get_screens_from_xrandr () {
-    # gets the name of the connected screens for this computer. 
-    screens=( $(xrandr | grep " connected" | grep -o "^[^ ]*") )
-    #echo ${screens[@]}
-}
 
 dual_screen () {
 	#xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
@@ -53,21 +44,23 @@ print_help () {
 }
 
 reset_screen () {
-
-    # set the first screen to what it should be.
-    echo ${screens[0]}
-    xrandr --output ${screens[0]} --primary --auto
+    echo INFO-- Reset configuration to first screen only. 
+    screens=( $(xrandr | grep "connected" | grep -o "^[^ ]*") )
 
     # turn off all other screens. 
     for screen in "${screens[@]}"
     do
+        # not the first in the array, that is usually the laptop screen. 
         if [ "$screen" != "${screens[0]}" ];
         then 
-            echo $screen --same as ${screens[0]}
+            echo "$screen --off"
             xrandr --output $screen --off
         fi
     done
-    echo INFO-- Reset configuration to first screen only. 
+    
+    # set the first screen to what it should be.
+    echo ${screens[0]}
+    xrandr --output ${screens[0]} --primary --auto
 
 	# reset screen resolutions.
     #xrandr --output HDMI1 --off
@@ -79,7 +72,9 @@ reset_screen () {
 }
 
 projector_mode () {
-
+    # gets the name of the connected screens for this computer. 
+    screens=( $(xrandr | grep " connected" | grep -o "^[^ ]*") )
+    
     # set the first screen to what it should be.
     echo ${screens[0]}
     xrandr --output ${screens[0]} --auto
@@ -100,9 +95,6 @@ single_screen () {
 	xrandr --output LVDS1 --auto --output VGA1 --primary --auto --right-of LVDS1
     echo "INFO-- Input External Screen - VGA"
 }
-
-# execute
-get_screens_from_xrandr
 
 # no arguments 
 if [ $# -eq 0 ];

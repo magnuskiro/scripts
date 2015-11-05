@@ -13,8 +13,8 @@ open(FILE, $file) or die $!;
 
 # for all files in the line
 while (<FILE>) {
-	#print $_;
-	push(@urls, $_)
+    #print $_;
+    push(@urls, $_)
 }
 
 # close file.
@@ -25,10 +25,10 @@ my $base = "https://twitter.com/search?q=from%3ANorskoljeoggass OR from%3Aoljedi
 my $params = "";
 # for all files
 foreach my $item (@urls){
-#	print $base.$item."\n";
-	# concatenate one long open firefox string, so that all files are opened in
-	# one firefox instance.
-	$params = $params." '".$base.$item."'";
+#    print $base.$item."\n";
+    # concatenate one long open firefox string, so that all files are opened in
+    # one firefox instance.
+    $params = $params." '".$base.$item."'";
 }
 
 # execute the open all files command.

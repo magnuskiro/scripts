@@ -1,6 +1,6 @@
 #! /usr/bin/perl -w
 # script for inseritng values from file into db.
-# 19.03.13 DEPRECATED, but nice to have for reference. 
+# 19.03.13 DEPRECATED, but nice to have for reference.
 
 use strict;
 use DBI;
@@ -16,7 +16,7 @@ my $db = 'barweb_dev';
 my $user = 'barweb_dev';
 my $pass = 'barweb_dev';
 
-#	DBI:dbType:dbName:hostToConnectTo
+#    DBI:dbType:dbName:hostToConnectTo
 my $connect = 'DBI:mysql:'.$db.':host='.$host;
 
 
@@ -38,27 +38,27 @@ INSERT INTO `person` (
 `version`
 )
 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-"; 
+";
 
 my $query = $dbh->prepare($sql);
 
 #foreach my $values (@people){
-#	print $values; 
-#	$query->execute(@{$values}); 
+#    print $values;
+#    $query->execute(@{$values});
 #}
 
 open(USERS, "<barusers.txt");
 while(<USERS>) {
-	my @values = split(/\|/, $_); 
-	pop @values;	
-	#print @values."\n"; 
-	#foreach my $v (@values){
-	#	print $v."\|";
-	#}
-	#print "\n";
-	
-	$query->execute(@values);
+    my @values = split(/\|/, $_);
+    pop @values;
+    #print @values."\n";
+    #foreach my $v (@values){
+    #    print $v."\|";
+    #}
+    #print "\n";
+
+    $query->execute(@values);
 }
 close(USERS);
 
-	
+

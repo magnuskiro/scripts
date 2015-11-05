@@ -4,10 +4,10 @@ use warnings;
 use Cwd;
 
 # list all files in folder
-# get the input folder. 
+# get the input folder.
 my $directory = getcwd."/";
 for my $part (@ARGV){
-    # skip directories that start with one ore more . 
+    # skip directories that start with one ore more .
     if ( $part =~ m/^\.+/ ){ next };
     $directory = $directory.$part;
 }
@@ -29,18 +29,18 @@ closedir(DIR);
 
 for my $file (@files){
     print $file."\n";
-	my $name = $file;
-	$name =~ s/ - /-/;
-	$name =~ s/ /./g;
+    my $name = $file;
+    $name =~ s/ - /-/;
+    $name =~ s/ /./g;
     if ($name =~ m/(.+)-(\d{3})(.+)/){
-		$name = $1.".S01E".$2.$3; 
-		#print $name."\n";
-    }
-    elsif ($name =~ m/(.+)-(\d{2})(.+)/){
-        $name = $1.".S01E0".$2.$3;    
+        $name = $1.".S01E".$2.$3;
         #print $name."\n";
     }
-	system("mv '$file' '$name'");
+    elsif ($name =~ m/(.+)-(\d{2})(.+)/){
+        $name = $1.".S01E0".$2.$3;
+        #print $name."\n";
+    }
+    system("mv '$file' '$name'");
 }
 
 exit();

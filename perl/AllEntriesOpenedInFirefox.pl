@@ -12,8 +12,8 @@ open(FILE, $arg) or die $!;
 my $params = "";
 
 while (<FILE>) {
-	print $base.$_."\n";
-	#$params = $params." '".$base.$_."'";
+    print $base.$_."\n";
+    #$params = $params." '".$base.$_."'";
 }
 closedir(DIR);
 

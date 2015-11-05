@@ -13,7 +13,7 @@ my $db = "barweb_dev";
 my $user = 'barweb_dev';
 my $pass = 'barweb_dev';
 
-#	DBI:dbType:dbName:hostToConnectTo
+#    DBI:dbType:dbName:hostToConnectTo
 my $connect = 'DBI:mysql:'.$db.':host='.$host;
 
 
@@ -22,15 +22,15 @@ $dbh = DBI->connect($connect, $user, $pass) || die "Could not connect to databas
 
 
 my $sql1 = "
-SELECT  `ID` ,  `MONEY` ,  `USERNAME` ,  `TIMECREATED` ,  `FIRSTNAME` ,  `SURNAME` ,  `lastModified` 
-FROM  `person` 
+SELECT  `ID` ,  `MONEY` ,  `USERNAME` ,  `TIMECREATED` ,  `FIRSTNAME` ,  `SURNAME` ,  `lastModified`
+FROM  `person`
 WHERE  `FIRSTNAME` IS NULL
 ORDER BY  `person`.`TIMECREATED` DESC
 ";
 
 
 my $sql2 = "
-SELECT 
+SELECT
 `ID` ,
 `CARDID` ,
 `ACTIVE` ,
@@ -57,28 +57,28 @@ WHERE `ACTIVE` = '1' AND `GJENG_ID` = '2'
 ORDER BY `FIRSTNAME` ASC
 ";
 
-my $search_sth  = $dbh->prepare($sql); 
+my $search_sth  = $dbh->prepare($sql);
 $search_sth->execute();
 
-#print "id\t\tsaldo\t\tuser\t\tTcreate\t\t\tFname\tSname\tLmod\n"; 
-print "ID:CARDID:ACTIVE:EXTERNALID:EMAIL:MONEY:USERNAME:NAME:TIMECREATED:GJENG_ID:version\n"; 
+#print "id\t\tsaldo\t\tuser\t\tTcreate\t\t\tFname\tSname\tLmod\n";
+print "ID:CARDID:ACTIVE:EXTERNALID:EMAIL:MONEY:USERNAME:NAME:TIMECREATED:GJENG_ID:version\n";
 
-my $count = 0;    
+my $count = 0;
 # while rows in result
 while ( my  @row = $search_sth->fetchrow_array ) {
-	# for all fields in this row
-	foreach my $s (@row){
-		# if the field exists 
-		if(defined $s){		
-			print $s;
-		# if the field does not exist. 
-		}else {
-			print "-";
-		}
-		print " "; 
-	}
-	print "\n";
-	# count to keep track of the number of the results. 
-	$count ++;  
+    # for all fields in this row
+    foreach my $s (@row){
+        # if the field exists
+        if(defined $s){
+            print $s;
+        # if the field does not exist.
+        }else {
+            print "-";
+        }
+        print " ";
+    }
+    print "\n";
+    # count to keep track of the number of the results.
+    $count ++;
 }
-print "count = ".$count."\n"; 
+print "count = ".$count."\n";

@@ -47,7 +47,7 @@ PackageInstall () {
 	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
 filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server awesome
 awesome-extra xfce4-terminal eog vlc gnome-do xscreensaver maven
-owncloud-client" 
+owncloud-client lmodern" 
 
 	echo "-- INFO - Installing extra packages"
 	sudo apt-get install -y $packages

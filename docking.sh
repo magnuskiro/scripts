@@ -69,6 +69,9 @@ reset_screen () {
 	#xrandr --output DP2 --off
     #xrandr --output LVDS1 --auto # thinkpad x201 laptop screen.
     #xrandr --output eDP1 --auto # netlight-kiro laptop screen.
+
+    # set the brightness of the display to low.
+    BrightnessHPElitebook.sh 150
 }
 
 projector_mode () {
@@ -132,7 +135,10 @@ while getopts "wdhrpp:st" opt; do
 		single_screen
 	;;
 	w)
+    # set screen configuration as wanted at work.
 	xrandr --output DP2 --auto --primary --output HDMI1 --auto --right-of DP2 --output eDP1 --auto --left-of DP2
+    # set the brightness to the appropriate for work.
+    BrightnessHPElitebook.sh 375 
 	;;
 	# default / invalid option
     \?) 

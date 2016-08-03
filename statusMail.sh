@@ -32,25 +32,35 @@ echo "To:magnuskiro@gmail.com
 From:magnuskiro@gmail.com
 Subject: Status from '$hostname'
 " >>$EMAILMESSAGE
+echo "start"
 
 # add additional message body here.
-echo "Current IP: " >> $EMAILMESSAGE
 # 'ip987321' is the name of the temp file used to store the page containing my current ip. 
 # the perl program prints the ip addresses in the file. 
 # then the temp file is removed. 
-#wget -q -O ip987321 http://ipecho.net/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321 
-wget -q -O ip987321 http://checkip.dyndns.org/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321 >> $EMAILMESSAGE && rm ip987321 
+externalIP=`wget -q -O ip987321 http://checkip.dyndns.org/ && perl /home/kiro/repos/scripts/perl/echoAllIPsFromFile.pl ip987321`
+echo "External IP: $externalIP" >> $EMAILMESSAGE
+rm ip987321
+
+echo "between ips"
+
+# get the local IP 
+localIP=( $(ifconfig | grep -A 2 "eth0" | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}") )
+echo "Local IP: $localIP" >> $EMAILMESSAGE
 
 # this used to work. 
 #lynx --dump http://ipecho.net/plain >> $EMAILMESSAGE
 
+
 # print number of pending updates to the message body
+echo "updates"
 echo "" >> $EMAILMESSAGE
 echo "Updates: " >> $EMAILMESSAGE
 sudo apt-get update >> /dev/null
 echo `apt-get -s upgrade | grep "newly install"` >> $EMAILMESSAGE
 
 # print login status and session data to message body
+echo "logins"
 echo "" >> $EMAILMESSAGE
 echo "Status: " >> $EMAILMESSAGE
 w >>$EMAILMESSAGE

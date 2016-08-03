@@ -33,7 +33,11 @@ for my $file (@files){
 #        print "unzip '$file' -d '$1' && "."\n";
     }
     elsif($file =~ m/(.+)\.rar/){
-        system("mkdir '$1' && unrar e '$1.rar' && mv *.jpg '$1' && mv *.png '$1'");
+        system("mkdir '$1' \ 
+            && unrar e '$1.rar' \
+            && mv *.jpg '$1' \
+            && mv *.png '$1'"
+        );
 #        print "mkdir $1 && unrar e '$file' && mv *.jpg $1 && mv *.png $1 && "."\n";
     }
 

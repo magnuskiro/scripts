@@ -45,7 +45,7 @@ rm ip987321
 echo "between ips"
 
 # get the local IP 
-localIP=( $(ifconfig | grep -A 2 "eth0" | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}") )
+localIP=( $(/sbin/ifconfig | grep -A 2 "eth0" | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}") )
 echo "Local IP: $localIP" >> $EMAILMESSAGE
 
 # this used to work. 

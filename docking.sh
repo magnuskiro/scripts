@@ -108,8 +108,12 @@ then
 fi
 
 # Parsing input arguments 
-while getopts "wdhrpp:st" opt; do
+while getopts "bwdhrpp:st" opt; do
   case $opt in
+    # battlestation
+    b)
+        xrandr --output HDMI-0 --mode 1920x1080 --left-of DVI-0 --noprimary --output DVI-0 --auto --output DVI-1 --auto --right-of
+    ;;
 	# dual
     d)
 		dual_screen
@@ -135,10 +139,10 @@ while getopts "wdhrpp:st" opt; do
 		single_screen
 	;;
 	w)
-    # set screen configuration as wanted at work.
-	xrandr --output HDMI1 --auto --primary --output DP1 --auto --right-of HDMI1 --output eDP1 --auto --left-of HDMI1
-    # set the brightness to the appropriate for work.
-    BrightnessHPElitebook.sh 475 
+        # set screen configuration as wanted at work.
+	    xrandr --output HDMI1 --auto --primary --output DP1 --auto --right-of HDMI1 --output eDP1 --auto --left-of HDMI1
+        # set the brightness to the appropriate for work.
+        BrightnessHPElitebook.sh 475 
 	;;
 	# default / invalid option
     \?) 

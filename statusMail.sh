@@ -32,7 +32,7 @@ echo "To:magnuskiro@gmail.com
 From:magnuskiro@gmail.com
 Subject: Status from '$hostname'
 " >>$EMAILMESSAGE
-echo "start"
+#echo "start"
 
 # add additional message body here.
 # 'ip987321' is the name of the temp file used to store the page containing my current ip. 
@@ -42,7 +42,7 @@ externalIP=`wget -q -O ip987321 http://checkip.dyndns.org/ && perl /home/kiro/re
 echo "External IP: $externalIP" >> $EMAILMESSAGE
 rm ip987321
 
-echo "between ips"
+#echo "between ips"
 
 # get the local IP 
 localIP=( $(/sbin/ifconfig | grep -A 2 "eth0" | grep -oP "\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}") )
@@ -53,14 +53,14 @@ echo "Local IP: $localIP" >> $EMAILMESSAGE
 
 
 # print number of pending updates to the message body
-echo "updates"
+#echo "updates"
 echo "" >> $EMAILMESSAGE
 echo "Updates: " >> $EMAILMESSAGE
 sudo apt-get update >> /dev/null
 echo `apt-get -s upgrade | grep "newly install"` >> $EMAILMESSAGE
 
 # print login status and session data to message body
-echo "logins"
+#echo "logins"
 echo "" >> $EMAILMESSAGE
 echo "Status: " >> $EMAILMESSAGE
 w >>$EMAILMESSAGE

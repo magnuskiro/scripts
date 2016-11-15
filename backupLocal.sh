@@ -16,7 +16,7 @@ Script to backup my home folder to my backup server.
 backuLocal.sh -h
 * Normal: copy this folder to the same folder on the server.  
 backupLocal.sh
-* exclude: sets specific exclude list. Not in addidtion to the predefined excludelist.
+* exclude: sets specific exclude list. This disregards the predefined excludelist.
 backupLocal.sh -e .cpan .bashrc Downloads
 
 
@@ -24,12 +24,10 @@ backupLocal.sh -e .cpan .bashrc Downloads
 * -e exclude following parameters. 
 * -h home - defines that the backup takes place on my home network. 
 
-
-
 END
 
 # connection variables
-host="kiro@s.magnuskiro.no"
+host="kiro@magnuskiro.no"
 port="40596"
 ssh="'ssh -p $port'"
 
@@ -37,34 +35,36 @@ ssh="'ssh -p $port'"
 excludelist="$HOME/repos/configs/backup_excludelist"
 
 # directories
-backup_dir=`pwd` # copying to this, standard: the current directory. Same as ./
+destination_dir=`pwd` # copying to this, standard: the current directory. Same as ./
 source_dir="./" # copying from this, standard: the current directory, ~= ./
 
 synchronize () {
-	echo "Info -- source: $source_dir"
-	echo "Info -- destination: $host:$backup_dir"
-	rsync -auvzPe 'ssh -p 40596' --exclude-from $excludelist $source_dir $host:$backup_dir  
+    echo "Info -- source:      $source_dir"
+    echo "Info -- destination: $host:$destination_dir"
+    rsync -auvzPe 'ssh -p 40596' --exclude-from $excludelist $source_dir $host:$destination_dir  
 }
 
 # Input parameter handling. 
 while getopts "bhe:" opt; do
   case $opt in
-	b)
-		backup_dir="~/backup/`hostname`_home_`date +%F`"
-		source_dir="$HOME/"
-	;;
-	e)
-		excludelist=$OPTARG
-	;;
-	# -h, home. On the local net. DNS name doesn't work. 
+    b)
+        echo "Info -- Backup options: local home folder to backup folder to server backup folder. "
+        destination_dir="~/backup/`hostname`_home_`date +%F`"
+        source_dir="$HOME/"
+    ;;
+    e)
+        excludelist=$OPTARG
+    ;;
+    # -h, home. On the local net. DNS name doesn't work. 
     h)  
-		host="kiro@192.168.10.20"
-	;;
-	# invalid options 
+        echo "Info -- Using the local IP"    
+        host="kiro@192.168.10.20"
+    ;;
+    # invalid options 
     \?) 
-		echo "Invalid option: -$OPTARG" >&2 
-		exit 1
-	;;
+        echo "Invalid option: -$OPTARG" >&2 
+        exit 1
+    ;;
   esac
 done 
 

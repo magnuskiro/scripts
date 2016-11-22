@@ -139,8 +139,9 @@ while getopts "bwdhrpp:st" opt; do
 		single_screen
 	;;
 	w)
+        xrandr --output HDMI1 --auto --primary --output eDP1 --auto --left-of HDMI1
         # set screen configuration as wanted at work.
-	    xrandr --output HDMI1 --auto --primary --output DP1 --auto --right-of HDMI1 --output eDP1 --auto --left-of HDMI1
+	    #xrandr --output HDMI1 --auto --primary --output DP1 --auto --right-of HDMI1 --output eDP1 --auto --left-of HDMI1
         # set the brightness to the appropriate for work.
         BrightnessHPElitebook.sh 475 
 	;;

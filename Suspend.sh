@@ -16,9 +16,3 @@ sudo pm-suspend
 
 echo "Woke from sleep."
 
-# old suspend code. Worked with thinkpad x201 on LMDE 1 
-#xscreensaver-command -lock &&
-#dbus-send --system --print-reply --dest=org.freedesktop.Hal \
-#    /org/freedesktop/Hal/devices/computer \
-#    org.freedesktop.Hal.Device.SystemPowerManagement.Suspend int32:0 \
-

@@ -5,7 +5,7 @@
 Comments, requirements and userguide here. 
 
 ## Description
-This is a bash script template. To quickly create good and powerfull scripts.  
+Script to configure external screens with xrandr.
 
 ## Requirements
 You need these packages or programs for this script to work. 
@@ -20,27 +20,14 @@ bash_program -a a-param-input -b another_input_value
 
 END
 
-
-dual_screen () {
-	#xrandr --output LVDS1 --off --output VGA1 --primary --auto --left-of LVDS1
-    xrandr --output LVDS1 --off
-    xrandr --output HDMI1 --primary --auto --output VGA1 --auto --left-of HDMI1
-    echo "INFO-- Dual screens. Full resolution both screens, laptop screen off."
-}
-
-external_screen () {
-	xrandr --output LVDS1 --off --output VGA1 --primary --auto
-}
-
 print_help () {
-	echo "Use 'dock' with: "
-	echo "	'-e' external screen, laptop off."
-	echo "	'-d' dual screen, laptop off."
-	echo "	'-h' help, print this help text."
-	echo "	'-r' reset, laptop opnly,"
-	echo "	'-p' projector mode, same picture on both laptop and VGA1"
-	echo "	'-s' external vga1 main + laptop"
-	echo "	'' no parameter, toggle VGA1 auto on/off"
+    echo "Use 'dock' with: "
+    echo "    '-b' battle station configuration"
+    echo "    '-h' help, print this help text"
+    echo "    '-k' kudos configuration"
+    echo "    '-p' projector mode, same picture on both laptop and VGA1"
+    echo "    '-w' work configuration"
+    echo "    '' (no parameters) reset screens"
 }
 
 reset_screen () {
@@ -61,14 +48,6 @@ reset_screen () {
     # set the first screen to what it should be.
     echo ${screens[0]}
     xrandr --output ${screens[0]} --primary --auto
-
-	# reset screen resolutions.
-    #xrandr --output HDMI1 --off
-    #xrandr --output VGA1 --off
-	#xrandr --output DP1 --off
-	#xrandr --output DP2 --off
-    #xrandr --output LVDS1 --auto # thinkpad x201 laptop screen.
-    #xrandr --output eDP1 --auto # netlight-kiro laptop screen.
 
     # set the brightness of the display to low.
     BrightnessHPElitebook.sh 150
@@ -94,61 +73,39 @@ projector_mode () {
     echo "INFO-- Projector mode. Same image on all screens."
 }
 
-single_screen () {
-	xrandr --output LVDS1 --auto --output VGA1 --primary --auto --right-of LVDS1
-    echo "INFO-- Input External Screen - VGA"
-}
-
 # no arguments 
 if [ $# -eq 0 ];
 then
-	# reset screen resolution to standard.
-	reset_screen
+    # reset screen resolution to standard.
+    reset_screen
     exit 1
 fi
 
 # Parsing input arguments 
 while getopts "bwdhrpp:st" opt; do
   case $opt in
-    # battlestation
-    b)
+    b)  # battle station configuration
         xrandr --output HDMI-0 --mode 1920x1080 --left-of DVI-0 --noprimary --output DVI-0 --auto --output DVI-1 --auto --right-of
     ;;
-	# dual
     d)
-		dual_screen
-	;;
-	# External screen only	
-	e) 
-		external_screen
-	;;
-	# help
-	h)
-		print_help
-	;;
-	# reset
-	r)
-		reset_screen
-	;;
-	# projector
-	p)
-		projector_mode
-	;;
-	# single screen + laptop. 
-    s)  
-		single_screen
-	;;
-	w)
+        dual_screen
+    ;;
+    h)  # print help info.
+        print_help
+    ;;
+    k)  # Kudos configuration
+        xrandr --output DP2 --auto --above eDP1
+    ;;
+    p)  # Projector
+        projector_mode
+    ;;
+    w)  # work configuration
         xrandr --output HDMI1 --auto --primary --output eDP1 --auto --left-of HDMI1
-        # set screen configuration as wanted at work.
-	    #xrandr --output HDMI1 --auto --primary --output DP1 --auto --right-of HDMI1 --output eDP1 --auto --left-of HDMI1
-        # set the brightness to the appropriate for work.
-        BrightnessHPElitebook.sh 475 
-	;;
-	# default / invalid option
-    \?) 
-		echo "Invalid option: -$OPTARG, use '-h' for help." >&2 
-	;;
+        BrightnessHPElitebook.sh 475 # adjust brightness of elitebook 
+    ;;
+    \?) # default / invalid option
+        echo "Invalid option: -$OPTARG, use '-h' for help." >&2 
+    ;;
   esac
 done 
 

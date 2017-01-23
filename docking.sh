@@ -82,7 +82,7 @@ then
 fi
 
 # Parsing input arguments 
-while getopts "bdhkpwp:" opt; do
+while getopts "bdhkpwsp:" opt; do
   case $opt in
     b)  # battle station configuration
         xrandr --output HDMI-0 --mode 1920x1080 --left-of DVI-0 --noprimary --output DVI-0 --auto --output DVI-1 --auto --right-of
@@ -102,6 +102,9 @@ while getopts "bdhkpwp:" opt; do
     w)  # work configuration
         xrandr --output DP1 --auto --primary --output eDP1 --auto --left-of DP1
         BrightnessHPElitebook.sh 475 # adjust brightness of elitebook 
+    ;;
+    s)
+        xrandr --output DP1 --auto --primary --output DP2 --auto --right-of DP1
     ;;
     \?) # default / invalid option
         echo "Invalid option: -$OPTARG, use '-h' for help." >&2 

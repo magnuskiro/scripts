@@ -31,7 +31,7 @@ END
 
 MinimalPackageInstall () {
 	packages="
-	git ack-grep htop vim
+	git ack-grep htop vim xclip
 	"
 
 	echo "-- INFO - Installing minimal packages"
@@ -44,7 +44,7 @@ PackageInstall () {
     # remove shite that fucks up stuff!
     sudo apt-get purge -y nemo
     	
-	packages="exuberant-ctags libparse-exuberantctags-perl xclip ssmtp screen
+	packages="exuberant-ctags libparse-exuberantctags-perl ssmtp screen
 filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server awesome
 awesome-extra xfce4-terminal eog vlc gnome-do xscreensaver maven
 owncloud-client lmodern" 

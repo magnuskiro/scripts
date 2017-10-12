@@ -93,9 +93,6 @@ while getopts "bdhkpwsp:" opt; do
     h)  # print help info.
         print_help
     ;;
-    k)  # Kudos configuration
-        xrandr --output DP2 --auto --above eDP1
-    ;;
     p)  # Projector
         projector_mode
     ;;
@@ -104,7 +101,10 @@ while getopts "bdhkpwsp:" opt; do
         BrightnessHPElitebook.sh 475 # adjust brightness of elitebook 
     ;;
     s)
-        xrandr --output DP1 --auto --primary --output DP2 --auto --right-of DP1
+	#sb1
+        xrandr  --output eDP-1 --auto \
+		--output DP-1-1 --auto --primary --right-of eDP-1\
+		--output DP-1-2 --auto --right-of DP-1-1
     ;;
     \?) # default / invalid option
         echo "Invalid option: -$OPTARG, use '-h' for help." >&2 

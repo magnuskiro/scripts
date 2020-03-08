@@ -4,7 +4,7 @@ sudo date
 
 while true; 
 do
-    ifconfig | grep -A 3 -P "eth0" | grep -P "inet"
+    ifconfig | grep -A 3 -P "eth0|enp0" | grep -P "inet"
     sleep 1
     sudo dhclient -r
     sleep 1

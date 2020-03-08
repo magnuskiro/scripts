@@ -8,7 +8,8 @@ sudo echo "Screen reset, locking and Suspending"
 sleep 2
 
 # activating screen saver and locking computer.
-xscreensaver-command -lock & 
+#xscreensaver-command -lock & 
+i3lock -c 000000 -I 60 -t
 sleep 2
 
 # Suspending.

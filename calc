@@ -1,6 +1,2 @@
 #!/bin/bash
-
-# simple terminal calculator. 
-echo $@ | bc
-
-# use 'calc 2+5'
+gnome-calculator

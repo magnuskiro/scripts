@@ -1,0 +1,10 @@
+#!/bin/bash
+
+date
+
+while true; 
+do
+    ping6 -c 3 2a02:2690::1
+    sleep 1
+    echo "======v6"
+done

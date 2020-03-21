@@ -1,0 +1,10 @@
+#!/bin/bash
+
+date
+
+while true; 
+do
+    ping -c 3 vg.no
+    sleep 1
+    echo "======v4"
+done

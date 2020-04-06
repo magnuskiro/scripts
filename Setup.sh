@@ -31,7 +31,7 @@ END
 
 MinimalPackageInstall () {
 	packages="
-	git ack-grep htop vim xclip
+	git ack-grep htop vim xclip tree
 	"
 
 	echo "-- INFO - Installing minimal packages"
@@ -40,14 +40,10 @@ MinimalPackageInstall () {
 
 PackageInstall () {
 	MinimalPackageInstall
-
-    # remove shite that fucks up stuff!
-    sudo apt-get purge -y nemo
     	
 	packages="exuberant-ctags libparse-exuberantctags-perl ssmtp screen
-filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server awesome
-awesome-extra xfce4-terminal eog vlc gnome-do xscreensaver maven
-owncloud-client lmodern" 
+filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server eog
+vlc maven lmodern i3 i3lock" 
 
 	echo "-- INFO - Installing extra packages"
 	sudo apt-get install -y $packages
@@ -114,7 +110,7 @@ CloneRepos () {
 CreateSymlinks (){
     echo "-- INFO - Creating symlinks"
 
-	# linking bin to scripts folder, enabling direct cmd access to pesonal
+	# linking bin to scripts folder, enabling direct cmd access to personal
 	# scripts. 
     rm ~/bin
 	ln -s ~/repos/scripts/ ~/bin
@@ -123,16 +119,22 @@ CreateSymlinks (){
     conf_dir="~/repos/configs"
 
 	# awesome specifics. 
-    echo "Creating link: $conf_dir/awesome ~/.config/awesome"
-	rm ~/.config/awesome 
-	eval "ln -s $conf_dir/awesome ~/.config/awesome"
+    #echo "Creating link: $conf_dir/awesome ~/.config/awesome"
+	#rm ~/.config/awesome 
+	#eval "ln -s $conf_dir/awesome ~/.config/awesome"
 
-    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases" ".xscreensaver"
+    # i3 config
+    echo "Creating link: $conf_dir/i3 ~/.config/i3"
+	rm ~/.config/awesome 
+	eval "ln -s $conf_dir/i3 ~/.config/i3"
+
+    # for config in list create correct symlink 
+    for conf_file in ".vim" ".vimrc" ".gitconfig" ".bash_aliases" 
     do
         location=$conf_dir/$conf_file
 		destination=./$conf_file
 		echo "Creating link: $location $destination"
-	rm $destination
+	    rm $destination
         cmd="ln -s $location $destination"
 		eval $cmd	
     done
@@ -144,7 +146,6 @@ AppendPathVariablesToProfile (){
 #echo "
 #eval `source ~/repos/configs/path_exports`
 #" >> ~/.profile
-
 }
 
 LaptopSpecifics () {
@@ -184,8 +185,6 @@ while getopts "lisu" opt; do
 		eval "source $HOME/.profile"
 
 		~/repos/scripts/install_spotify.sh
-		#TODO create script
-		#installOwnCloadClient.sh
 	;;
 	# LaptopSpecifics, add laptop config, see method. 
 	l)

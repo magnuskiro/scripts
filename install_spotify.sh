@@ -13,17 +13,12 @@ https://raw.githubusercontent.com/magnuskiro/scripts/master/installSpotify.sh \
 END
 
 InstallSpotify () {
-    # add spotify sources.list
-    echo "deb http://repository.spotify.com stable non-free" >> ./spotify.list
-    sudo mv ./spotify.list /etc/apt/sources.list.d/spotify.list 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D2C19886
+    curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 
-    # install Spotify
-    sudo apt-get update 
-    sudo apt-get install -y spotify-client
+    sudo apt-get update && sudo apt-get install spotify-client
 }
 
 echo "-- INFO - Installing Spotify"
 InstallSpotify
-
 

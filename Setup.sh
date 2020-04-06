@@ -43,11 +43,11 @@ PackageInstall () {
     	
 	packages="exuberant-ctags libparse-exuberantctags-perl screen
 filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server eog
-vlc maven lmodern i3 i3lock slack" 
+vlc maven lmodern i3 i3lock slack pavucontrol" 
 
 	echo "-- INFO - Installing extra packages"
 	sudo apt-get install -y $packages
-
+    sudo apt-get autoremove
 }
 
 AptUpgrade () {
@@ -56,6 +56,7 @@ AptUpgrade () {
 	sudo apt-get update 
 	#sudo apt-get upgrade -y
 	sudo apt-get dist-upgrade -y
+    sudo apt-get autoremove
 }
 
 CreateSSHkeys () {
@@ -141,8 +142,9 @@ CreateSymlinks (){
 }
 
 AppendPathVariablesToProfile (){
+echo "- INFO -- pah variables are skipped"
 #eval \"source ~/repos/configs/path_exports\"
-`cat ~/repos/configs/path_exports >> ~/.profile`
+#`cat ~/repos/configs/path_exports >> ~/.profile`
 #echo "
 #eval `source ~/repos/configs/path_exports`
 #" >> ~/.profile

@@ -41,7 +41,7 @@ MinimalPackageInstall () {
 PackageInstall () {
 	MinimalPackageInstall
     	
-	packages="exuberant-ctags libparse-exuberantctags-perl ssmtp screen
+	packages="exuberant-ctags libparse-exuberantctags-perl screen
 filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server eog
 vlc maven lmodern i3 i3lock slack" 
 

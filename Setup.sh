@@ -43,7 +43,7 @@ PackageInstall () {
     	
 	packages="exuberant-ctags libparse-exuberantctags-perl ssmtp screen
 filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server eog
-vlc maven lmodern i3 i3lock" 
+vlc maven lmodern i3 i3lock slack" 
 
 	echo "-- INFO - Installing extra packages"
 	sudo apt-get install -y $packages

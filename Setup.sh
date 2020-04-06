@@ -185,6 +185,7 @@ while getopts "lisu" opt; do
 		eval "source $HOME/.profile"
 
 		~/repos/scripts/install_spotify.sh
+		~/repos/scripts/install_chrome.sh
 	;;
 	# LaptopSpecifics, add laptop config, see method. 
 	l)

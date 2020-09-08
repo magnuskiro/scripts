@@ -35,7 +35,7 @@ MinimalPackageInstall () {
 	"
 
 	echo "-- INFO - Installing minimal packages"
-	sudo apt-get install -y $packages
+	sudo apt install -y $packages
 }
 
 PackageInstall () {
@@ -43,20 +43,20 @@ PackageInstall () {
     	
 	packages="exuberant-ctags libparse-exuberantctags-perl screen
 filezilla texlive lmodern texlive-extra-utils inotify-tools openssh-server eog
-vlc maven lmodern i3 i3lock slack pavucontrol" 
+vlc maven lmodern i3 i3lock pavucontrol" 
 
 	echo "-- INFO - Installing extra packages"
-	sudo apt-get install -y $packages
-    sudo apt-get autoremove
+	sudo apt install -y $packages
+    sudo apt autoremove
 }
 
 AptUpgrade () {
 	echo "-- INFO -- Upgrading"
 	# Doing System upgrade last.
-	sudo apt-get update 
-	#sudo apt-get upgrade -y
-	sudo apt-get dist-upgrade -y
-    sudo apt-get autoremove
+	sudo apt update 
+	#sudo apt upgrade -y
+	sudo apt full-upgrade -y
+    sudo apt autoremove
 }
 
 CreateSSHkeys () {

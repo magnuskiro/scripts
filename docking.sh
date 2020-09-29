@@ -86,10 +86,10 @@ while getopts "bdhkpwsp:" opt; do
   case $opt in
     b)  # battle station configuration
         #xrandr --output DP1-3 --auto --left-of eDP1 --output DP1-1 --auto --left-of DP1-3
-        xrandr --output eDP-1 --off \
---output DP-1-3 --auto --primary \
---output DP-1-2 --auto --right-of DP-1-3 \
---output DP-1-1 --auto --right-of DP-1-2 --rotate left 
+        xrandr  --output eDP-1 --auto --below DP-1-1-3 \
+                --output DP-1-3 --auto --primary \
+                --output DP-1-2 --auto --right-of DP-1-1-3 \
+                #--output DP-1-1 --auto --right-of DP-1-2 --rotate left 
         #xrandr --output HDMI-0 --mode 1920x1080 --left-of DVI-0 --noprimary --output DVI-0 --auto --output DVI-1 --auto --right-of
     ;;
     d)
@@ -102,8 +102,10 @@ while getopts "bdhkpwsp:" opt; do
         projector_mode
     ;;
     w)  # work configuration
-        xrandr --output DP1 --auto --primary --output eDP1 --auto --left-of DP1
-        BrightnessHPElitebook.sh 475 # adjust brightness of elitebook 
+        xrandr  --output eDP-1 --auto --below HDMI-2 \
+                --output HDMI-2 --auto --primary \
+                --output DP-1 --auto --rotate left --right-of HDMI-2 
+        BrightnessOnLaptop.sh 15000 # adjust brightness of elitebook 
     ;;
     s)
 	#sb1

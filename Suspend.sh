@@ -13,7 +13,7 @@ i3lock -c 000000 -I 60 -t
 sleep 2
 
 # Suspending.
-sudo pm-suspend
+pm-suspend
 
 echo "Woke from sleep."
 

@@ -1,16 +1,20 @@
 #!/bin/bash
 
 # usage:
-# 'BrightnessHPElitebook.sh 500'
+# 'BrightnessOnLapton.sh -inc 1220'
+# 'BrightnessOnLapton.sh -dec 1220'
 
-#get input arg, number 100 =< x >= 937
-number=$@
-
-# if brightness file is not writeable, change write rights for the file.  
-
-# set brightness
-echo $number > /sys/class/backlight/intel_backlight/brightness
-
-# debug
-echo "Set brightness to $number"
+set -e
+file="/sys/class/backlight/intel_backlight/brightness"
+current=$(cat "$file")
+new="$current"
+if [ "$1" = "-inc" ]
+then
+	new=$(( current + $2 ))
+fi
+if [ "$1" = "-dec" ]
+then
+new=$(( current - $2 ))
+fi
+echo "$new" | tee "$file"
 

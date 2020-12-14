@@ -50,7 +50,7 @@ reset_screen () {
     xrandr --output ${screens[0]} --primary --auto
 
     # set the brightness of the display to low.
-    BrightnessHPElitebook.sh 150
+    #BrightnessOnLaptop.sh 3000
 }
 
 projector_mode () {
@@ -86,9 +86,9 @@ while getopts "bdhkpwsp:" opt; do
   case $opt in
     b)  # battle station configuration
         #xrandr --output DP1-3 --auto --left-of eDP1 --output DP1-1 --auto --left-of DP1-3
-        xrandr  --output eDP-1 --auto --below DP-1-1-3 \
+        xrandr  --output eDP-1 --auto --below DP-1-3 \
                 --output DP-1-3 --auto --primary \
-                --output DP-1-2 --auto --right-of DP-1-1-3 \
+                --output DP-1-2 --auto --right-of DP-1-3 \
                 #--output DP-1-1 --auto --right-of DP-1-2 --rotate left 
         #xrandr --output HDMI-0 --mode 1920x1080 --left-of DVI-0 --noprimary --output DVI-0 --auto --output DVI-1 --auto --right-of
     ;;
@@ -103,8 +103,8 @@ while getopts "bdhkpwsp:" opt; do
     ;;
     w)  # work configuration
         xrandr  --output eDP-1 --auto --below HDMI-2 \
-                --output HDMI-2 --auto --primary \
-                --output DP-1 --auto --rotate left --right-of HDMI-2 
+                --output DP-1 --auto --right-of HDMI-2 \
+                --output HDMI-2 --auto --primary
         BrightnessOnLaptop.sh 15000 # adjust brightness of elitebook 
     ;;
     s)

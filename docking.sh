@@ -102,9 +102,10 @@ while getopts "bdhkpwsp:" opt; do
         projector_mode
     ;;
     w)  # work configuration
-        xrandr  --output eDP-1 --auto --below HDMI-2 \
-                --output DP-1 --auto --right-of HDMI-2 \
-                --output HDMI-2 --auto --primary
+        xrandr  --output eDP-1 --off \
+                --output DP-1-2 --auto --right-of DP-1-1 \
+                --output DP-1-1 --auto --right-of DP-1-3 --primary \
+                --output DP-1-3 --auto 
         BrightnessOnLaptop.sh 15000 # adjust brightness of elitebook 
     ;;
     s)

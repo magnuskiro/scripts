@@ -13,7 +13,7 @@ https://raw.githubusercontent.com/magnuskiro/scripts/master/??.sh \
 END
 
 # TODO fetch version as input parameter.
-IDEA_VERSION="2021.1.2"
+IDEA_VERSION="2021.2"
 
 InstallIntellij () {
     # download latest version

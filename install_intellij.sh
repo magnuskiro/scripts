@@ -33,7 +33,7 @@ InstallIntellij () {
     # example: "idea-IU-211.7442.40/" it's not the same as the version name
     # downloaded. 
     #sudo ln -s /usr/local/ideaIU-$IDEA_VERSION/ /usr/local/idea
-    echo "! manual link creation needed."
+    echo "! manual link creation in /usr/local/ needed."
 
     # remove the old intellij installation in /usr/lib/share somtehing.
     # TODO remove the old intellij after linking is OK. 

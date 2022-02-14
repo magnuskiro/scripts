@@ -78,6 +78,7 @@ if [ $# -eq 0 ];
 then
     # reset screen resolution to standard.
     reset_screen
+    BrightnessOnLaptop.sh --specific 2282
     exit 1
 fi
 
@@ -86,11 +87,10 @@ while getopts "bdhkpwsp:" opt; do
   case $opt in
     b)  # battle station configuration
         #xrandr --output DP1-3 --auto --left-of eDP1 --output DP1-1 --auto --left-of DP1-3
-        xrandr  --output eDP-1 --off \
-                --output DP-1-1 --auto --primary \
-                --output DP-1-3 --auto --left-of DP-1-1 \
-                --output DP-1-2 --auto --right-of DP-1-1 --rotate left 
-        #xrandr --output HDMI-0 --mode 1920x1080 --left-of DVI-0 --noprimary --output DVI-0 --auto --output DVI-1 --auto --right-of
+        xrandr  --output eDP-1 --auto \
+                --output DP-1-2 --mode 2560x1440 --right-of eDP-1 --primary \
+                --output DP-1-1 --auto --right-of DP-1-2 \
+        BrightnessOnLaptop.sh --specific 7162 # set brightness
     ;;
     d)
         dual_screen
@@ -103,9 +103,9 @@ while getopts "bdhkpwsp:" opt; do
     ;;
     w)  # work configuration
         xrandr  --output eDP-1 --auto \
-                --output DP-1-3 --auto --right-of eDP-1 --primary \
-                --output DP-1-2 --auto --right-of DP-1-3 
-        BrightnessOnLaptop.sh 15000 # adjust brightness of elitebook 
+                --output DP-1-2 --auto --right-of eDP-1 --primary \
+                --output DP-1-3 --auto --right-of DP-1-2
+        BrightnessOnLaptop.sh --specific 7162 # set brightness to default
     ;;
     s)
 	#sb1

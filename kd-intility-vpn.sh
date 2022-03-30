@@ -29,3 +29,7 @@ send "$pw\n"
 expect "Answer: "
 
 interact
+
+
+# openconnect alternative
+# sudo openconnect --csd-user=$USER --csd-wrapper=$HOME/.cisco/csd-wrapper.sh vpn.intility.com --user=magnus.kiro@klavenessdigital.com

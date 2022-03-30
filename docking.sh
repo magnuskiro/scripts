@@ -89,7 +89,7 @@ while getopts "bdhkpwsp:" opt; do
         #xrandr --output DP1-3 --auto --left-of eDP1 --output DP1-1 --auto --left-of DP1-3
         xrandr  --output eDP-1 --auto \
                 --output DP-1-2 --mode 2560x1440 --right-of eDP-1 --primary \
-                --output DP-1-1 --auto --right-of DP-1-2 \
+                --output DP-1-1 --mode 2560x1440 --right-of DP-1-2
         BrightnessOnLaptop.sh --specific 7162 # set brightness
     ;;
     d)
@@ -110,8 +110,8 @@ while getopts "bdhkpwsp:" opt; do
     s)
 	#sb1
         xrandr  --output eDP-1 --auto \
-		--output DP-1-1 --auto --primary --right-of eDP-1\
-		--output DP-1-2 --auto --right-of DP-1-1
+		--output DP-1-2 --auto --primary --right-of eDP-1\
+		--output DP-1-3 --auto --right-of DP-1-2
     ;;
     \?) # default / invalid option
         echo "Invalid option: -$OPTARG, use '-h' for help." >&2 

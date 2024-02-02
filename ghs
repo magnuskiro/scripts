@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# script for using multiple ssh keys for github.
+# Esentially creating another git commang `ghs` which includes the ssh parameters needed. 
+
+echo $@
+
+# execute git command with specific ssh key file.
+GIT_SSH_COMMAND='ssh -i $HOME/.ssh/blonde-solidify -o IdentitiesOnly=yes' git $@ 
+
+

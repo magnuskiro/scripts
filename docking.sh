@@ -103,8 +103,8 @@ while getopts "bdhkpwsp:" opt; do
     ;;
     w)  # work configuration
         xrandr  --output eDP-1 --auto \
-                --output DP-1-2 --auto --right-of eDP-1 --primary \
-                --output DP-1-3 --auto --right-of DP-1-2
+                --output DP-1-1 --auto --right-of eDP-1 --primary \
+                --output DP-1-2 --auto --right-of DP-1-1
         BrightnessOnLaptop.sh --specific 7162 # set brightness to default
     ;;
     s)
